@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NailsVibe - Premium Monochrome Nail Art</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Unbounded:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #0a0a0a;
+            --white: #ffffff;
+            --accent: #1a1a1a;
+        }
+        
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--white);
+            color: var(--black);
+            overflow-x: hidden;
+        }
+
+        .font-heading { font-family: 'Unbounded', sans-serif; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--white); }
+        ::-webkit-scrollbar-thumb { background: var(--black); }
+
+        /* Neo-Brutalism Enhancements */
+        .neo-card {
+            background: white;
+            border: 3px solid var(--black);
+            box-shadow: 10px 10px 0px 0px var(--black);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .neo-card:hover {
+            transform: translate(-4px, -4px);
+            box-shadow: 16px 16px 0px 0px var(--black);
+        }
+
+        .neo-btn {
+            position: relative;
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--black);
+            color: white;
+            border: 3px solid var(--black);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        .neo-btn:hover {
+            background: var(--white);
+            color: var(--black);
+            box-shadow: 6px 6px 0px 0px var(--black);
+            transform: translate(-2px, -2px);
+        }
+
+        /* Hero Image Masking & Animation */
+        .hero-img-container {
+            position: relative;
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0% 100%);
+        }
+
+        /* Marquee Smoothness */
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+            display: flex;
+            width: 200%;
+            animation: marquee 20s linear infinite;
+        }
+
+        /* Floating Badge */
+        .badge-spin {
+            animation: spin 10s linear infinite;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .text-outline {
+            -webkit-text-stroke: 1px var(--black);
+            color: transparent;
+        }
+        
+        section { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        section.visible { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Preloader/Noise Overlay -->
+    <div class="fixed inset-0 pointer-events-none z-[9999] opacity-[0.03] bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 px-4 py-6 pointer-events-none">
+        <div class="max-w-7xl mx-auto flex justify-between items-center bg-white/90 backdrop-blur-md border-[3px] border-black px-8 py-4 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] pointer-events-auto">
+            <a href="#" class="text-3xl font-black tracking-tighter font-heading">NV<span class="text-outline">.</span></a>
+            
+            <div class="hidden md:flex space-x-12 text-xs font-extrabold uppercase tracking-widest">
+                <a href="#services" class="hover:line-through transition-all">Collections</a>
+                <a href="#about" class="hover:line-through transition-all">Philosophy</a>
+                <a href="#testi" class="hover:line-through transition-all">Community</a>
+            </div>
+
+            <a href="https://wa.me/6288980111938" class="neo-btn py-2 px-6 text-xs">Book Studio</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="min-h-screen flex items-center pt-24 pb-12 px-6 relative overflow-hidden">
+        <div class="container mx-auto grid lg:grid-cols-12 gap-12 items-center">
+            <!-- Left Content -->
+            <div class="lg:col-span-7 z-10">
+                <div class="inline-block bg-black text-white px-4 py-1 mb-6 rotate-[-1deg]">
+                    <span class="text-[10px] font-black uppercase tracking-[0.4em]">Est. 2024 • Central Java</span>
+                </div>
+                <h1 class="text-6xl md:text-[9rem] font-heading font-black leading-[0.85] mb-8 uppercase tracking-tighter">
+                    Crafting <br> <span class="text-outline">Slay</span> Nails.
+                </h1>
+                <div class="flex flex-col md:flex-row items-start md:items-center gap-8">
+                    <p class="text-lg text-black/80 max-w-sm font-semibold leading-tight">
+                        Lebih dari sekadar cat kuku. Kami menciptakan identitas di ujung jari kamu dengan gaya monochrome yang tajam.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#services" class="neo-btn">Menu</a>
+                        <button class="w-16 h-16 rounded-full border-2 border-black flex items-center justify-center hover:bg-black hover:text-white transition-all">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7H7v10"/></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Visual -->
+            <div class="lg:col-span-5 relative">
+                <div class="neo-card rotate-[2deg] overflow-hidden group">
+                    <img src="https://i.pinimg.com/736x/7e/63/69/7e6369679f58392779278dc28e7f9a32.jpg" 
+                         alt="NailsVibe Hero" 
+                         class="w-full h-[600px] object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700">
+                </div>
+                
+                <!-- Floating Circular Badge -->
+                <div class="absolute -top-10 -left-10 w-32 h-32 hidden md:block">
+                    <div class="relative w-full h-full flex items-center justify-center">
+                        <svg viewBox="0 0 100 100" class="badge-spin absolute inset-0 w-full h-full">
+                            <path id="circlePath" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" fill="transparent"/>
+                            <text class="text-[10px] font-black uppercase fill-black">
+                                <textPath xlink:href="#circlePath">Best Nail Art Experience • Central Java • </textPath>
+                            </text>
+                        </svg>
+                        <div class="w-12 h-12 bg-black rounded-full flex items-center justify-center text-white font-black">NV</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scrolling Text -->
+    <div class="bg-black py-6 border-y-4 border-black overflow-hidden flex whitespace-nowrap">
+        <div class="animate-marquee flex gap-12 items-center">
+            <span class="text-white font-heading text-4xl font-black italic uppercase">Minimalist but Loud •</span>
+            <span class="text-white font-heading text-4xl font-black italic uppercase text-outline">Minimalist but Loud •</span>
+            <span class="text-white font-heading text-4xl font-black italic uppercase">Minimalist but Loud •</span>
+            <span class="text-white font-heading text-4xl font-black italic uppercase text-outline">Minimalist but Loud •</span>
+            <span class="text-white font-heading text-4xl font-black italic uppercase">Minimalist but Loud •</span>
+            <span class="text-white font-heading text-4xl font-black italic uppercase text-outline">Minimalist but Loud •</span>
+        </div>
+    </div>
+
+    <!-- Philosophy Section -->
+    <section id="about" class="py-32 px-6 bg-[#f9f9f9]">
+        <div class="container mx-auto">
+            <div class="grid lg:grid-cols-2 gap-24 items-center">
+                <div class="order-2 lg:order-1 relative">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="neo-card h-64 overflow-hidden -rotate-3">
+                            <img src="https://images.unsplash.com/photo-1604654894610-df490982579d?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover grayscale">
+                        </div>
+                        <div class="neo-card h-64 overflow-hidden translate-y-12 rotate-3">
+                            <img src="https://images.unsplash.com/photo-1519014816548-bf5fe059798b?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover grayscale">
+                        </div>
+                    </div>
+                </div>
+                <div class="order-1 lg:order-2">
+                    <h2 class="text-5xl md:text-7xl font-heading font-black mb-12 uppercase leading-none">Why <br> NailsVibe?</h2>
+                    
+                    <div class="space-y-8">
+                        <details class="group border-b-2 border-black pb-4" open>
+                            <summary class="flex justify-between items-center cursor-pointer list-none">
+                                <h3 class="text-2xl font-black uppercase">01. Durability Focus</h3>
+                                <span class="text-3xl transition-transform group-open:rotate-45">+</span>
+                            </summary>
+                            <p class="mt-4 text-black/60 font-medium leading-relaxed">
+                                Kami menggunakan gel kualitas premium yang memastikan kuku kamu tetap badai hingga 4 minggu. No gompel, no drama.
+                            </p>
+                        </details>
+
+                        <details class="group border-b-2 border-black pb-4">
+                            <summary class="flex justify-between items-center cursor-pointer list-none">
+                                <h3 class="text-2xl font-black uppercase">02. Pinterest Approved</h3>
+                                <span class="text-3xl transition-transform group-open:rotate-45">+</span>
+                            </summary>
+                            <p class="mt-4 text-black/60 font-medium leading-relaxed">
+                                Punya referensi dari Pinterest? Tantang kami! Spesialisasi kami adalah custom art yang detail dan estetik.
+                            </p>
+                        </details>
+
+                        <details class="group border-b-2 border-black pb-4">
+                            <summary class="flex justify-between items-center cursor-pointer list-none">
+                                <h3 class="text-2xl font-black uppercase">03. Gen-Z Pricing</h3>
+                                <span class="text-3xl transition-transform group-open:rotate-45">+</span>
+                            </summary>
+                            <p class="mt-4 text-black/60 font-medium leading-relaxed">
+                                Harga yang masuk akal tanpa mengorbankan kualitas. Karena gaya tidak harus bikin dompet teriak.
+                            </p>
+                        </details>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Collection -->
+    <section id="services" class="py-32 px-6">
+        <div class="container mx-auto">
+            <div class="text-center mb-24">
+                <p class="font-bold uppercase tracking-[0.5em] text-xs mb-4">Our Masterpiece</p>
+                <h2 class="text-5xl md:text-8xl font-heading font-black uppercase">The Menu<span class="text-outline">.</span></h2>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="neo-card p-2 group bg-white">
+                    <div class="h-80 overflow-hidden mb-6">
+                        <img src="https://images.unsplash.com/photo-1632345031435-8727f6897d53?auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover group-hover:scale-110 transition-all">
+                    </div>
+                    <div class="p-6 pt-0">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-2xl font-black uppercase">Basic Polish</h3>
+                            <span class="bg-black text-white px-3 py-1 text-xs font-bold">Rp 45K</span>
+                        </div>
+                        <p class="text-sm font-semibold text-black/50 mb-8">Solid, matte, or glossy finish. Simplicity is the ultimate sophistication.</p>
+                        <a href="https://wa.me/6288980111938" class="block text-center border-2 border-black py-3 font-black uppercase text-xs hover:bg-black hover:text-white transition-all">Book This</a>
+                    </div>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="neo-card p-2 group bg-black text-white">
+                    <div class="h-80 overflow-hidden mb-6 relative">
+                        <div class="absolute top-4 left-4 z-10 bg-white text-black px-3 py-1 font-black text-xs">BEST SELLER</div>
+                        <img src="https://images.unsplash.com/photo-1604654894610-df490982579d?auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover group-hover:scale-110 transition-all opacity-80">
+                    </div>
+                    <div class="p-6 pt-0">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-2xl font-black uppercase">Art Custom</h3>
+                            <span class="bg-white text-black px-3 py-1 text-xs font-bold">Rp 110K+</span>
+                        </div>
+                        <p class="text-sm font-semibold text-white/50 mb-8">3D Chrome, Y2K charms, abstract lines. Your imagination is the only limit.</p>
+                        <a href="https://wa.me/6288980111938" class="block text-center border-2 border-white py-3 font-black uppercase text-xs hover:bg-white hover:text-black transition-all">Book This</a>
+                    </div>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="neo-card p-2 group bg-white">
+                    <div class="h-80 overflow-hidden mb-6">
+                        <img src="https://images.unsplash.com/photo-1522337660859-02fbefca4702?auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover group-hover:scale-110 transition-all">
+                    </div>
+                    <div class="p-6 pt-0">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-2xl font-black uppercase">Wedding Set</h3>
+                            <span class="bg-black text-white px-3 py-1 text-xs font-bold">Rp 250K</span>
+                        </div>
+                        <p class="text-sm font-semibold text-black/50 mb-8">Elegance for your big day. Luxury finish with pearl and diamond accents.</p>
+                        <a href="https://wa.me/6288980111938" class="block text-center border-2 border-black py-3 font-black uppercase text-xs hover:bg-black hover:text-white transition-all">Book This</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonial Section -->
+    <section id="testi" class="py-32 bg-black text-white overflow-hidden">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row gap-12 items-center">
+                <div class="md:w-1/2">
+                    <h2 class="text-5xl font-heading font-black uppercase leading-tight mb-8">Loved by <br> the <span class="text-outline">Community.</span></h2>
+                    <div class="space-y-12">
+                        <div class="relative">
+                            <span class="text-8xl font-black absolute -top-10 -left-6 opacity-10">"</span>
+                            <p class="text-2xl font-bold italic relative z-10">"Ketagihan banget! Desainnya gak pasaran dan mbaknya teliti parah. Best monochrome nail art in Jateng."</p>
+                            <p class="mt-4 font-black uppercase tracking-widest text-white/40">— Clara, Content Creator</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-1/2 grid grid-cols-2 gap-4">
+                    <div class="bg-white/5 p-4 neo-card border-white/20">
+                        <div class="text-4xl font-heading font-black mb-2">500+</div>
+                        <div class="text-[10px] font-bold text-white/50 uppercase tracking-widest">Happy Clients</div>
+                    </div>
+                    <div class="bg-white/5 p-4 neo-card border-white/20 translate-y-8">
+                        <div class="text-4xl font-heading font-black mb-2">4.9/5</div>
+                        <div class="text-[10px] font-bold text-white/50 uppercase tracking-widest">Customer Rating</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="py-40 text-center px-6">
+        <div class="container mx-auto border-[4px] border-black p-20 relative overflow-hidden">
+            <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
+            <div class="relative z-10">
+                <h2 class="text-6xl md:text-9xl font-heading font-black uppercase mb-12">Don't be <br> <span class="text-outline italic">Basic.</span></h2>
+                <a href="https://wa.me/6288980111938" class="neo-btn text-2xl px-12 py-6">Secure Your Slot</a>
+                <p class="mt-12 font-bold text-black/40 uppercase tracking-[0.4em]">Slot terbatas setiap minggunya.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-20 border-t-4 border-black px-6">
+        <div class="container mx-auto">
+            <div class="grid md:grid-cols-4 gap-12 mb-20">
+                <div class="col-span-2">
+                    <div class="text-5xl font-heading font-black mb-8 italic">NV<span class="text-outline">.</span></div>
+                    <p class="text-xl font-bold max-w-sm mb-8">Mendefinisikan ulang standar nail art di Jawa Tengah dengan estetika monochrome yang bold.</p>
+                    <div class="flex gap-6">
+                        <a href="#" class="w-12 h-12 border-2 border-black flex items-center justify-center hover:bg-black hover:text-white transition-all">IG</a>
+                        <a href="#" class="w-12 h-12 border-2 border-black flex items-center justify-center hover:bg-black hover:text-white transition-all">TT</a>
+                        <a href="#" class="w-12 h-12 border-2 border-black flex items-center justify-center hover:bg-black hover:text-white transition-all">PT</a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-black uppercase mb-6 tracking-widest text-xs">Studio</h4>
+                    <p class="font-bold text-black/60">Semarang • Solo • Purwokerto • Salatiga</p>
+                    <p class="mt-4 font-bold text-black/60 italic underline">Lihat Lokasi Maps</p>
+                </div>
+                <div>
+                    <h4 class="font-black uppercase mb-6 tracking-widest text-xs">Contact</h4>
+                    <p class="font-bold">hello@nailsvibe.studio</p>
+                    <p class="font-bold">+62 889 8011 1938</p>
+                </div>
+            </div>
+            <div class="pt-12 border-t border-black/10 flex flex-col md:flex-row justify-between items-center gap-6">
+                <p class="text-xs font-black uppercase tracking-widest">© 2026 NailsVibe Studio • All Slay Reserved</p>
+                <div class="flex gap-8 text-[10px] font-black uppercase tracking-widest">
+                    <a href="#" class="hover:underline">Privacy Policy</a>
+                    <a href="#" class="hover:underline">Terms of Slay</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Smooth Scroll for links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
