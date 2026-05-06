@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Studio Kuku Profesional | Minimalist Nail Art</title>
+    <title>Luxe Nails Studio | Gen-Z Approved Nail Art</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;700;800&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --studio-bg: #FCFBFA;
@@ -22,16 +22,20 @@
             line-height: 1.6;
         }
 
+        .font-syne {
+            font-family: 'Syne', sans-serif;
+        }
+
         /* Hero Image Container */
         .hero-img-container {
-            height: calc(100vh - 100px);
+            height: 70vh;
             position: relative;
             overflow: hidden;
         }
 
         /* Clean Section Spacing */
         .section-padding {
-            padding: 100px 0;
+            padding: 120px 0;
         }
 
         /* Subtle Hover Effect */
@@ -53,33 +57,70 @@
         .gallery-photo {
             background-color: #eee;
             overflow: hidden;
+            position: relative;
         }
         .gallery-photo img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.6s ease;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .gallery-photo:hover img {
-            transform: scale(1.03);
+            transform: scale(1.1);
         }
 
         /* Minimalist Button */
         .btn-studio {
             background: var(--studio-accent);
             color: white;
-            padding: 18px 36px;
-            font-weight: 600;
-            font-size: 14px;
-            letter-spacing: 1px;
+            padding: 20px 40px;
+            font-weight: 700;
+            font-size: 13px;
+            letter-spacing: 2px;
             text-transform: uppercase;
-            transition: opacity 0.3s;
+            transition: all 0.3s;
+            display: inline-block;
         }
         .btn-studio:hover {
-            opacity: 0.85;
+            background: #333;
+            transform: translateY(-2px);
         }
 
-        /* Smooth Scroll */
+        /* Scrolling Text Effect */
+        .scroll-text {
+            white-space: nowrap;
+            overflow: hidden;
+            background: #1A1A1A;
+            color: white;
+            padding: 15px 0;
+        }
+        .scroll-text-inner {
+            display: inline-block;
+            animation: scroll 30s linear infinite;
+        }
+        @keyframes scroll {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+
+        /* Custom underline */
+        .link-underline {
+            position: relative;
+        }
+        .link-underline::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: currentColor;
+            transition: width 0.3s ease;
+        }
+        .link-underline:hover::after {
+            width: 100%;
+        }
+
         html {
             scroll-behavior: smooth;
         }
@@ -88,81 +129,149 @@
 <body>
 
     <!-- Header -->
-    <header class="fixed w-full top-0 z-50 bg-[#FCFBFA]/90 backdrop-blur-md border-b border-gray-100">
+    <header class="fixed w-full top-0 z-50 bg-[#FCFBFA]/80 backdrop-blur-xl border-b border-gray-100">
         <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
-            <a href="#" class="text-xl font-extrabold tracking-tight">LUXE NAILS STUDIO.</a>
-            <nav class="hidden md:flex gap-12 text-sm font-medium uppercase tracking-widest">
-                <a href="#services" class="hover:text-gray-400 transition">Layanan</a>
-                <a href="#work" class="hover:text-gray-400 transition">Galeri</a>
-                <a href="#booking" class="hover:text-gray-400 transition">Kontak</a>
+            <a href="#" class="font-syne text-2xl font-extrabold tracking-tighter">LUXE NAILS.</a>
+            <nav class="hidden md:flex gap-12 text-[10px] font-bold uppercase tracking-[0.3em]">
+                <a href="#about" class="link-underline">Why Us</a>
+                <a href="#services" class="link-underline">Menu</a>
+                <a href="#work" class="link-underline">Gallery</a>
+                <a href="#booking" class="link-underline">Book</a>
             </nav>
-            <a href="#booking" class="text-sm font-bold border-b-2 border-black pb-1">Book Appointment</a>
+            <div class="flex items-center gap-6">
+                <a href="https://instagram.com" class="text-sm"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#booking" class="text-[10px] font-extrabold border border-black px-4 py-2 hover:bg-black hover:text-white transition uppercase tracking-widest">Appointment</a>
+            </div>
         </div>
     </header>
 
     <!-- Hero Section -->
     <main class="pt-20">
-        <section class="max-w-7xl mx-auto px-6 py-12">
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-                <div>
-                    <span class="text-xs font-bold tracking-[0.3em] uppercase text-gray-400 block mb-6">Established 2024</span>
-                    <h1 class="text-5xl md:text-7xl font-bold leading-[1.1] mb-8 tracking-tighter">
-                        Artistry for your <br> Fingertips.
+        <section class="max-w-7xl mx-auto px-6 py-20">
+            <div class="grid md:grid-cols-12 gap-12 items-center">
+                <div class="md:col-span-7">
+                    <span class="text-[10px] font-bold tracking-[0.4em] uppercase text-gray-400 block mb-6">Designed for Gen-Z & Trendsetters</span>
+                    <h1 class="font-syne text-6xl md:text-[100px] font-bold leading-[0.85] mb-10 tracking-tighter uppercase">
+                        Self care is <br> <span class="text-gray-300">not a crime.</span>
                     </h1>
-                    <p class="text-lg text-gray-500 max-w-md mb-10 font-light">
-                        Spesialis dalam manicure teknis, desain minimalis, dan kesehatan kuku alami. Memberikan pengalaman studio yang tenang dan hasil yang tahan lama.
+                    <p class="text-xl text-gray-500 max-w-lg mb-12 font-light leading-relaxed">
+                        Kami paham kuku adalah kanvas identitasmu. Bukan sekadar manicure, ini adalah tentang ekspresi diri melalui desain paling estetik yang tetap menjaga kesehatan kuku alamimu.
                     </p>
-                    <a href="#booking" class="btn-studio inline-block">Reservasi Sekarang</a>
+                    <div class="flex flex-col sm:flex-row gap-6">
+                        <a href="#booking" class="btn-studio text-center">Mulai Konsultasi Desain</a>
+                        <div class="flex items-center gap-4 text-xs font-bold uppercase tracking-widest">
+                            <span class="w-12 h-[1px] bg-black"></span>
+                            Scroll to explore
+                        </div>
+                    </div>
                 </div>
-                <div class="hero-img-container rounded-sm shadow-sm">
-                    <img src="https://images.unsplash.com/photo-1632345031435-8727f6897d53?auto=format&fit=crop&q=80&w=1000" 
-                         class="w-full h-full object-cover" alt="Nail Art Professional">
+                <div class="md:col-span-5">
+                    <div class="hero-img-container rounded-lg shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-700">
+                        <img src="https://images.unsplash.com/photo-1632345031435-8727f6897d53?auto=format&fit=crop&q=80&w=1000" 
+                             class="w-full h-full object-cover" alt="Nail Art Professional">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Scrolling Text -->
+        <div class="scroll-text">
+            <div class="scroll-text-inner font-syne font-bold uppercase tracking-widest text-sm">
+                NON-TOXIC GEL &nbsp; • &nbsp; CUSTOM 3D ART &nbsp; • &nbsp; CRUELTY FREE &nbsp; • &nbsp; GEN-Z APPROVED &nbsp; • &nbsp; SUSTAINABLE CARE &nbsp; • &nbsp; AESTHETIC VIBES &nbsp; • &nbsp; 
+                NON-TOXIC GEL &nbsp; • &nbsp; CUSTOM 3D ART &nbsp; • &nbsp; CRUELTY FREE &nbsp; • &nbsp; GEN-Z APPROVED &nbsp; • &nbsp; SUSTAINABLE CARE &nbsp; • &nbsp; AESTHETIC VIBES &nbsp; • &nbsp; 
+            </div>
+        </div>
+
+        <!-- Problem & Solution Section (The "Why") -->
+        <section id="about" class="section-padding bg-white">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="grid md:grid-cols-2 gap-24 items-center">
+                    <div class="order-2 md:order-1">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="aspect-square bg-gray-100 rounded-lg overflow-hidden mt-12">
+                                <img src="https://i.pinimg.com/736x/f4/db/fd/f4dbfdc0825f4c911a11febd30027704.jpg" class="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-500">
+                            </div>
+                            <div class="aspect-[3/4] bg-gray-100 rounded-lg overflow-hidden">
+                                <img src="https://i.pinimg.com/736x/3a/aa/ea/3aaaea406679701eb1ef7fc3a369f3a1.jpg" class="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-500">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="order-1 md:order-2">
+                        <span class="text-xs font-black uppercase tracking-[0.4em] text-gray-300 block mb-4 italic">The Struggle is Real</span>
+                        <h2 class="font-syne text-4xl md:text-5xl font-bold mb-8 leading-tight uppercase">Kuku rusak atau desain yang <span class="bg-yellow-200 px-2">itu-itu saja?</span></h2>
+                        
+                        <div class="space-y-10">
+                            <div class="flex gap-6">
+                                <span class="font-syne text-4xl font-bold text-gray-200">01</span>
+                                <div>
+                                    <h4 class="font-bold text-lg mb-2 uppercase">Masalah: Damage Control</h4>
+                                    <p class="text-gray-500 font-light">Banyak salon mengabaikan kesehatan kuku demi hasil instan. Hasilnya? Kuku tipis dan rapuh setelah gel dilepas.</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-6">
+                                <span class="font-syne text-4xl font-bold text-gray-200">02</span>
+                                <div>
+                                    <h4 class="font-bold text-lg mb-2 uppercase">Masalah: Boring Templates</h4>
+                                    <p class="text-gray-500 font-light">Capek dengan katalog desain yang sudah ketinggalan zaman? Kamu butuh artist yang paham tren TikTok dan Pinterest terbaru.</p>
+                                </div>
+                            </div>
+                            <div class="pt-6">
+                                <div class="p-8 bg-gray-50 border-l-4 border-black">
+                                    <h4 class="font-syne font-bold uppercase mb-2">Our Solution</h4>
+                                    <p class="text-sm text-gray-600">Luxe Nails menggunakan <strong>Medical-Grade Cuticle Care</strong> dan produk gel vegan yang memperkuat kuku, dipadukan dengan artist yang spesialis di desain 3D & Chrome.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- Services Section -->
-        <section id="services" class="section-padding bg-white">
+        <section id="services" class="section-padding">
             <div class="max-w-7xl mx-auto px-6">
-                <div class="mb-20">
-                    <h2 class="text-3xl font-bold tracking-tight mb-4">Layanan Studio</h2>
-                    <div class="h-1 w-12 bg-black"></div>
+                <div class="mb-20 flex flex-col md:flex-row justify-between items-end gap-6">
+                    <div class="max-w-xl">
+                        <h2 class="font-syne text-4xl md:text-6xl font-bold tracking-tighter uppercase mb-6">Service <br>Menu.</h2>
+                        <p class="text-gray-500 uppercase text-[10px] font-bold tracking-[0.3em]">Investasi terbaik adalah penampilanmu</p>
+                    </div>
+                    <div class="h-px flex-grow bg-gray-200 hidden md:block mx-12 mb-4"></div>
                 </div>
 
-                <div class="space-y-2">
+                <div class="space-y-0 border-t border-gray-100">
                     <!-- Service 1 -->
-                    <div class="service-card py-10 flex flex-col md:flex-row justify-between items-start md:items-center">
+                    <div class="service-card py-12 flex flex-col md:flex-row justify-between items-start md:items-center">
                         <div class="max-w-xl">
-                            <h3 class="text-2xl font-bold mb-2">Manicure Dasar & Gel</h3>
-                            <p class="text-gray-500 text-sm">Pembersihan kutikula secara mendalam, pembentukan kuku, dan aplikasi warna gel premium dengan ketahanan hingga 3 minggu.</p>
+                            <h3 class="font-syne text-2xl font-bold mb-4 uppercase">Russian Manicure & Solid Gel</h3>
+                            <p class="text-gray-500 text-sm font-light">Teknik pembersihan kutikula paling bersih di dunia untuk tampilan kuku yang lebih panjang dan rapi. Termasuk 1 warna gel premium.</p>
                         </div>
-                        <div class="mt-4 md:mt-0 text-right">
-                            <span class="text-xl font-bold">Rp 150.000</span>
-                            <p class="text-xs text-gray-400 mt-1">60 Menit</p>
+                        <div class="mt-6 md:mt-0 text-right">
+                            <span class="text-2xl font-bold font-syne">IDR 175K</span>
+                            <p class="text-[10px] font-bold text-gray-400 mt-2 uppercase tracking-widest">Duration: 75 Mins</p>
                         </div>
                     </div>
 
                     <!-- Service 2 -->
-                    <div class="service-card py-10 flex flex-col md:flex-row justify-between items-start md:items-center">
+                    <div class="service-card py-12 flex flex-col md:flex-row justify-between items-start md:items-center">
                         <div class="max-w-xl">
-                            <h3 class="text-2xl font-bold mb-2">Signature Nail Art</h3>
-                            <p class="text-gray-500 text-sm">Desain kustom mulai dari minimalis garis hingga detail artistik yang dilukis dengan tangan oleh artist profesional kami.</p>
+                            <h3 class="font-syne text-2xl font-bold mb-4 uppercase">The Pinterest Set (Custom Art)</h3>
+                            <p class="text-gray-500 text-sm font-light">Bawa referensi dari Pinterest/TikTok! Termasuk chrome, hand-painted lines, charms, atau efek gradasi.</p>
                         </div>
-                        <div class="mt-4 md:mt-0 text-right">
-                            <span class="text-xl font-bold">Mulai Rp 250.000</span>
-                            <p class="text-xs text-gray-400 mt-1">90+ Menit</p>
+                        <div class="mt-6 md:mt-0 text-right">
+                            <span class="text-2xl font-bold font-syne">Starts 250K</span>
+                            <p class="text-[10px] font-bold text-gray-400 mt-2 uppercase tracking-widest">Duration: 120 Mins</p>
                         </div>
                     </div>
 
                     <!-- Service 3 -->
-                    <div class="service-card py-10 flex flex-col md:flex-row justify-between items-start md:items-center">
+                    <div class="service-card py-12 flex flex-col md:flex-row justify-between items-start md:items-center">
                         <div class="max-w-xl">
-                            <h3 class="text-2xl font-bold mb-2">Gel Extension & Restoration</h3>
-                            <p class="text-gray-500 text-sm">Ekstensi kuku menggunakan teknik gel yang ringan dan terlihat natural. Cocok untuk memperbaiki kuku yang rapuh.</p>
+                            <h3 class="font-syne text-2xl font-bold mb-4 uppercase">Extreme 3D & Extensions</h3>
+                            <p class="text-gray-500 text-sm font-light">Ekstensi kuku dengan Jelly Gel dan dekorasi 3D berdimensi tinggi. Untuk kamu yang ingin tampil ekstra.</p>
                         </div>
-                        <div class="mt-4 md:mt-0 text-right">
-                            <span class="text-xl font-bold">Rp 450.000</span>
-                            <p class="text-xs text-gray-400 mt-1">120 Menit</p>
+                        <div class="mt-6 md:mt-0 text-right">
+                            <span class="text-2xl font-bold font-syne">IDR 450K+</span>
+                            <p class="text-[10px] font-bold text-gray-400 mt-2 uppercase tracking-widest">Duration: 180 Mins</p>
                         </div>
                     </div>
                 </div>
@@ -170,24 +279,28 @@
         </section>
 
         <!-- Work Gallery -->
-        <section id="work" class="section-padding">
+        <section id="work" class="section-padding bg-gray-50">
             <div class="max-w-7xl mx-auto px-6">
                 <div class="flex justify-between items-end mb-16">
-                    <h2 class="text-3xl font-bold tracking-tight">Koleksi Desain</h2>
-                    <a href="#" class="text-sm font-bold border-b border-black">Follow Instagram @luxenails</a>
+                    <h2 class="font-syne text-4xl font-bold tracking-tight uppercase">Recent <br>Drop.</h2>
+                    <div class="text-right">
+                        <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Updated Weekly</p>
+                        <a href="#" class="text-sm font-bold border-b-2 border-black pb-1 hover:text-gray-500 transition">View on Instagram</a>
+                    </div>
                 </div>
 
                 <div class="grid-gallery">
-                    <div class="gallery-photo col-span-12 md:col-span-8 h-[500px]">
+                    <div class="gallery-photo col-span-12 md:col-span-7 h-[600px] rounded-lg">
                         <img src="https://i.pinimg.com/736x/2c/85/fd/2c85fd4e7c79c40cd241866522881eeb.jpg" alt="Gallery 1">
+                        <div class="absolute bottom-6 left-6 text-white bg-black/20 backdrop-blur-md px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest">Chrome Obsession</div>
                     </div>
-                    <div class="gallery-photo col-span-6 md:col-span-4 h-[500px]">
+                    <div class="gallery-photo col-span-12 md:col-span-5 h-[600px] rounded-lg">
                         <img src="https://i.pinimg.com/736x/3a/aa/ea/3aaaea406679701eb1ef7fc3a369f3a1.jpg" alt="Gallery 2">
                     </div>
-                    <div class="gallery-photo col-span-6 md:col-span-4 h-[400px]">
+                    <div class="gallery-photo col-span-12 md:col-span-4 h-[450px] rounded-lg">
                         <img src="https://i.pinimg.com/736x/f4/db/fd/f4dbfdc0825f4c911a11febd30027704.jpg" alt="Gallery 3">
                     </div>
-                    <div class="gallery-photo col-span-12 md:col-span-8 h-[400px]">
+                    <div class="gallery-photo col-span-12 md:col-span-8 h-[450px] rounded-lg">
                         <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&q=80&w=1200" alt="Gallery 4">
                     </div>
                 </div>
@@ -195,59 +308,72 @@
         </section>
 
         <!-- Booking & Footer -->
-        <section id="booking" class="bg-gray-50 section-padding">
+        <section id="booking" class="section-padding border-t border-gray-100">
             <div class="max-w-7xl mx-auto px-6">
                 <div class="grid md:grid-cols-2 gap-20">
                     <div>
-                        <h2 class="text-4xl font-bold mb-8 tracking-tight">Kunjungi Studio Kami</h2>
-                        <p class="text-gray-500 mb-12 font-light text-lg">Kami beroperasi dengan sistem janji temu untuk memastikan setiap klien mendapatkan perhatian penuh dan kenyamanan maksimal.</p>
+                        <h2 class="font-syne text-5xl font-bold mb-10 tracking-tight uppercase leading-[0.9]">Ready to <br><span class="text-gray-300 italic">glow up?</span></h2>
+                        <p class="text-gray-500 mb-12 font-light text-lg">Slot per hari sangat terbatas karena kami mengutamakan kualitas, bukan kuantitas. Pastikan kamu reservasi H-3.</p>
                         
-                        <div class="space-y-8">
-                            <div class="flex gap-6">
-                                <div class="w-10 h-10 flex items-center justify-center border border-gray-200 rounded-full shrink-0">
-                                    <i class="fa-solid fa-location-dot text-sm"></i>
+                        <div class="space-y-10">
+                            <div class="flex gap-6 items-center">
+                                <div class="w-12 h-12 flex items-center justify-center bg-black text-white rounded-full shrink-0">
+                                    <i class="fa-solid fa-location-dot"></i>
                                 </div>
                                 <div>
-                                    <p class="font-bold">Lokasi</p>
-                                    <p class="text-gray-400 text-sm">Kawasan SCBD, Jl. Jend Sudirman Kav 52-53, Jakarta Selatan</p>
+                                    <p class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Our Studio</p>
+                                    <p class="font-bold">District 8, Level 12, SCBD Jakarta Selatan</p>
                                 </div>
                             </div>
-                            <div class="flex gap-6">
-                                <div class="w-10 h-10 flex items-center justify-center border border-gray-200 rounded-full shrink-0">
-                                    <i class="fa-solid fa-clock text-sm"></i>
+                            <div class="flex gap-6 items-center">
+                                <div class="w-12 h-12 flex items-center justify-center border border-black rounded-full shrink-0">
+                                    <i class="fa-solid fa-phone-volume"></i>
                                 </div>
                                 <div>
-                                    <p class="font-bold">Jam Operasional</p>
-                                    <p class="text-gray-400 text-sm">Selasa - Minggu: 10:00 — 20:00</p>
+                                    <p class="text-[10px] font-bold uppercase tracking-widest text-gray-400">WhatsApp Only</p>
+                                    <p class="font-bold">+62 812 3456 7890</p>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="mt-12">
-                            <a href="https://wa.me/62812345678" class="btn-studio inline-flex items-center gap-3">
-                                <i class="fa-brands fa-whatsapp"></i> Book via WhatsApp
+                        <div class="mt-16 flex flex-wrap gap-4">
+                            <a href="https://wa.me/62812345678" class="btn-studio flex items-center gap-3">
+                                <i class="fa-brands fa-whatsapp text-lg"></i> Book via WhatsApp
                             </a>
                         </div>
                     </div>
-                    <div class="bg-white p-10 shadow-sm rounded-sm">
-                        <h4 class="text-xl font-bold mb-6">Kirim Pertanyaan</h4>
-                        <form class="space-y-4">
-                            <input type="text" placeholder="Nama Lengkap" class="w-full p-4 bg-gray-50 border-none text-sm outline-none focus:ring-1 focus:ring-black">
-                            <input type="email" placeholder="Email" class="w-full p-4 bg-gray-50 border-none text-sm outline-none focus:ring-1 focus:ring-black">
-                            <textarea placeholder="Pesan Anda" rows="4" class="w-full p-4 bg-gray-50 border-none text-sm outline-none focus:ring-1 focus:ring-black"></textarea>
-                            <button type="button" class="w-full bg-black text-white py-4 font-bold text-xs uppercase tracking-widest">Kirim Pesan</button>
+                    <div class="bg-gray-50 p-12 rounded-2xl">
+                        <h4 class="font-syne text-xl font-bold mb-8 uppercase tracking-tight">Quick Inquiry</h4>
+                        <form class="space-y-6">
+                            <div>
+                                <label class="text-[10px] font-black uppercase tracking-widest mb-2 block">Your Name</label>
+                                <input type="text" class="w-full py-4 bg-transparent border-b border-gray-300 outline-none focus:border-black transition text-sm">
+                            </div>
+                            <div>
+                                <label class="text-[10px] font-black uppercase tracking-widest mb-2 block">Ideal Service</label>
+                                <select class="w-full py-4 bg-transparent border-b border-gray-300 outline-none focus:border-black transition text-sm">
+                                    <option>Russian Manicure</option>
+                                    <option>Custom Art Set</option>
+                                    <option>3D Extensions</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="text-[10px] font-black uppercase tracking-widest mb-2 block">Reference Link (Optional)</label>
+                                <input type="text" placeholder="IG/Pinterest link..." class="w-full py-4 bg-transparent border-b border-gray-300 outline-none focus:border-black transition text-sm italic">
+                            </div>
+                            <button type="button" class="w-full bg-black text-white py-6 font-bold text-xs uppercase tracking-[0.3em] mt-8 hover:bg-gray-800 transition">Submit Request</button>
                         </form>
                     </div>
                 </div>
 
-                <div class="mt-32 pt-10 border-t border-gray-200 flex flex-col md:flex-row justify-between items-center gap-6">
-                    <p class="text-xl font-extrabold tracking-tight">LUXE NAILS STUDIO.</p>
-                    <div class="flex gap-8 text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400">
-                        <a href="#">Instagram</a>
-                        <a href="#">TikTok</a>
-                        <a href="#">Privacy Policy</a>
+                <div class="mt-40 pt-10 border-t border-gray-100 flex flex-col md:flex-row justify-between items-center gap-8">
+                    <p class="font-syne text-2xl font-extrabold tracking-tighter">LUXE NAILS.</p>
+                    <div class="flex gap-10 text-[10px] font-bold uppercase tracking-[0.3em] text-gray-400">
+                        <a href="#" class="hover:text-black">Instagram</a>
+                        <a href="#" class="hover:text-black">TikTok</a>
+                        <a href="#" class="hover:text-black">Pinterest</a>
                     </div>
-                    <p class="text-gray-400 text-[10px] uppercase tracking-widest">© 2024 Luxe Nails Collective.</p>
+                    <p class="text-gray-400 text-[10px] uppercase tracking-widest italic">Est. 2024 — Curated with Love in Jakarta</p>
                 </div>
             </div>
         </section>
