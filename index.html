@@ -18,10 +18,12 @@
             background-color: var(--studio-bg);
             color: var(--studio-accent);
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
         .font-syne { font-family: 'Syne', sans-serif; }
 
+        /* Utilitas Gambar */
         .img-wrapper {
             overflow: hidden;
             border-radius: 12px;
@@ -29,24 +31,6 @@
             height: 100%;
             width: 100%;
             position: relative;
-        }
-
-        /* Efek hitam sebelum kursor mengarah ke foto */
-        .img-wrapper::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.4); /* Kegelapan awal */
-            transition: background-color 0.5s ease;
-            z-index: 1;
-        }
-
-        /* Menghilangkan efek hitam saat di-hover */
-        .img-wrapper:hover::after {
-            background-color: rgba(0, 0, 0, 0);
         }
 
         .img-wrapper img {
@@ -60,37 +44,38 @@
             transform: scale(1.05);
         }
 
-        .gallery-container {
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            gap: 16px;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
+        /* Padding Seksi */
         .section-padding { padding: 100px 0; }
 
-        .service-card {
-            border-bottom: 1px solid #E5E5E5;
-            transition: all 0.4s ease;
+        /* Kartu Segmen */
+        .segment-card {
+            background: white;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            border: 1px solid #f0f0f0;
         }
-        .service-card:hover {
-            background-color: #f7f7f7;
-            padding-left: 20px;
+        .segment-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
         }
 
+        /* Tombol Utama */
         .btn-studio {
             background: var(--studio-accent);
             color: white;
             padding: 18px 36px;
             font-weight: 700;
-            font-size: 12px;
+            font-size: 11px;
             letter-spacing: 2px;
             text-transform: uppercase;
             transition: all 0.3s;
             display: inline-block;
         }
+        .btn-studio:hover {
+            background: #333;
+            transform: translateY(-2px);
+        }
 
+        /* Efek Teks Berjalan (Marquee) */
         .scroll-text {
             white-space: nowrap;
             overflow: hidden;
@@ -109,23 +94,13 @@
             to { transform: translateX(-50%); }
         }
 
-        html { scroll-behavior: smooth; }
-        
-        .form-label {
-            font-size: 8px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: #1A1A1A;
-            margin-bottom: 8px;
-            display: block;
-        }
+        /* Form Styling */
         .form-input {
             width: 100%;
             background: transparent;
             border-bottom: 1px solid #E5E5E5;
-            padding: 10px 0;
-            font-size: 11px;
+            padding: 12px 0;
+            font-size: 12px;
             outline: none;
             transition: border-color 0.3s;
         }
@@ -133,31 +108,40 @@
             border-color: #000;
         }
 
-        /* Memastikan label di atas foto tidak tertutup overlay */
-        .overlay-label {
-            z-index: 10;
+        .floating-label {
+            font-size: 8px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #999;
+            margin-bottom: 4px;
+            display: block;
         }
+
+        html { scroll-behavior: smooth; }
     </style>
 </head>
 <body>
 
+    <!-- Navigasi -->
     <header class="fixed w-full top-0 z-50 bg-[#FCFBFA]/80 backdrop-blur-xl border-b border-gray-100">
-        <div class="max-w-6xl mx-auto px-6 h-20 flex justify-between items-center">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
             <a href="#" class="font-syne text-xl font-extrabold tracking-tighter uppercase">Luxe Nails.</a>
             <nav class="hidden md:flex gap-10 text-[9px] font-bold uppercase tracking-[0.3em]">
-                <a href="#about" class="hover:opacity-50 transition">Why Us</a>
-                <a href="#services" class="hover:opacity-50 transition">Menu</a>
-                <a href="#work" class="hover:opacity-50 transition">Gallery</a>
-                <a href="#booking" class="hover:opacity-50 transition">Book</a>
+                <a href="#about" class="hover:opacity-50 transition">Solusi</a>
+                <a href="#segments" class="hover:opacity-50 transition">Segmen</a>
+                <a href="#work" class="hover:opacity-50 transition">Karya</a>
+                <a href="#booking" class="hover:opacity-50 transition">Kontak</a>
             </nav>
             <div class="flex items-center gap-6">
-                <a href="#" class="text-sm"><i class="fa-brands fa-instagram"></i></a>
-                <a href="#booking" class="text-[9px] font-extrabold border border-black px-5 py-2 hover:bg-black hover:text-white transition uppercase tracking-widest text-center">Appointment</a>
+                <a href="https://instagram.com" target="_blank"><i class="fa-brands fa-instagram text-sm"></i></a>
+                <a href="#booking" class="text-[9px] font-extrabold border border-black px-5 py-2 hover:bg-black hover:text-white transition uppercase tracking-widest">Appointment</a>
             </div>
         </div>
     </header>
 
     <main class="pt-20">
+        <!-- SEKSI HERO -->
         <section class="max-w-6xl mx-auto px-6 py-24">
             <div class="grid md:grid-cols-12 gap-12 items-center">
                 <div class="md:col-span-7">
@@ -166,24 +150,20 @@
                         Self care is <br> <span class="text-gray-300 italic">not a crime.</span>
                     </h1>
                     <p class="text-lg text-gray-500 max-w-md mb-10 font-light leading-relaxed">
-                        Kami paham kuku adalah kanvas identitasmu. Bukan sekadar manicure, ini adalah tentang ekspresi diri melalui desain paling estetik yang tetap menjaga kesehatan kuku alamimu.
+                        Kami paham kuku adalah kanvas identitasmu. Bukan sekadar manicure, ini adalah tentang ekspresi diri melalui desain paling estetik.
                     </p>
-                    <div class="flex items-center gap-8">
-                        <a href="#booking" class="btn-studio">Mulai Konsultasi Desain</a>
-                        <div class="hidden md:flex items-center gap-4">
-                            <div class="w-12 h-[1px] bg-black"></div>
-                            <span class="text-[9px] font-bold uppercase tracking-widest">Scroll to explore</span>
-                        </div>
-                    </div>
+                    <a href="#booking" class="btn-studio shadow-xl">Mulai Konsultasi</a>
                 </div>
                 <div class="md:col-span-5">
-                    <div class="h-[500px] w-full rounded-2xl overflow-hidden shadow-xl">
-                        <img src="https://images.unsplash.com/photo-1610992015732-2449b0ec9a4d?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover" alt="[Seni Kuku Hero]">
+                    <!-- Foto Utama yang Diminta -->
+                    <div class="h-[500px] w-full rounded-2xl overflow-hidden shadow-2xl rotate-2">
+                        <img src="https://i.pinimg.com/736x/c5/c9/90/c5c9900a4e5a631b69f3b7dd55f2af35.jpg" class="w-full h-full object-cover" alt="[Seni Kuku Elegan Hero]">
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- Teks Berjalan -->
         <div class="scroll-text">
             <div class="scroll-text-inner font-syne font-bold uppercase tracking-widest text-[10px]">
                 NON-TOXIC GEL &nbsp; • &nbsp; CUSTOM 3D ART &nbsp; • &nbsp; CRUELTY FREE &nbsp; • &nbsp; GEN-Z APPROVED &nbsp; • &nbsp; 3D CHARMS &nbsp; • &nbsp; CHROME FINISH &nbsp; • &nbsp;
@@ -191,195 +171,191 @@
             </div>
         </div>
 
+        <!-- SEKSI SEGMEN TARGET -->
+        <section id="segments" class="section-padding bg-[#f9f9f9]">
+            <div class="max-w-6xl mx-auto px-6">
+                <div class="text-center mb-20">
+                    <span class="text-[9px] font-bold uppercase tracking-[0.3em] text-gray-400 block mb-4">Find Your Vibe</span>
+                    <h2 class="font-syne text-4xl md:text-5xl font-bold uppercase tracking-tight">Dibuat khusus untuk kamu yang...</h2>
+                </div>
+                
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Busy Professional -->
+                    <div class="segment-card p-8 rounded-3xl">
+                        <div class="w-14 h-14 bg-black text-white rounded-2xl flex items-center justify-center mb-8 text-xl">
+                            <i class="fa-solid fa-briefcase"></i>
+                        </div>
+                        <h3 class="font-syne text-xl font-bold mb-4 uppercase">The Busy Professional</h3>
+                        <p class="text-gray-500 text-sm font-light leading-relaxed mb-6">
+                            Butuh kuku yang tetap terlihat elegan saat meeting, tapi punya sentuhan detail yang "quiet luxury".
+                        </p>
+                        <ul class="text-[10px] font-bold uppercase tracking-widest text-gray-400 space-y-2">
+                            <li><i class="fa-solid fa-check text-black mr-2"></i> Clean Look</li>
+                            <li><i class="fa-solid fa-check text-black mr-2"></i> Durabilitas Tinggi</li>
+                        </ul>
+                    </div>
+
+                    <!-- Trendsetter -->
+                    <div class="segment-card p-8 rounded-3xl scale-105 border-black/5 shadow-xl z-10">
+                        <div class="w-14 h-14 bg-pink-100 text-pink-600 rounded-2xl flex items-center justify-center mb-8 text-xl">
+                            <i class="fa-solid fa-bolt"></i>
+                        </div>
+                        <h3 class="font-syne text-xl font-bold mb-4 uppercase">The Trendsetter</h3>
+                        <p class="text-gray-500 text-sm font-light leading-relaxed mb-6">
+                            Pinterest adalah kitab suci-mu. Chrome, 3D charms, atau Coquette aesthetic? Kami buatkan untukmu.
+                        </p>
+                        <ul class="text-[10px] font-bold uppercase tracking-widest text-gray-400 space-y-2">
+                            <li><i class="fa-solid fa-check text-black mr-2"></i> Custom 3D Art</li>
+                            <li><i class="fa-solid fa-check text-black mr-2"></i> Warna Tak Terbatas</li>
+                        </ul>
+                    </div>
+
+                    <!-- Bride-to-Be -->
+                    <div class="segment-card p-8 rounded-3xl">
+                        <div class="w-14 h-14 bg-yellow-50 text-yellow-600 rounded-2xl flex items-center justify-center mb-8 text-xl">
+                            <i class="fa-solid fa-ring"></i>
+                        </div>
+                        <h3 class="font-syne text-xl font-bold mb-4 uppercase">The Bride-to-Be</h3>
+                        <p class="text-gray-500 text-sm font-light leading-relaxed mb-6">
+                            Hari spesial butuh detail yang sempurna. Kami merancang desain kuku yang timeless dan memukau.
+                        </p>
+                        <ul class="text-[10px] font-bold uppercase tracking-widest text-gray-400 space-y-2">
+                            <li><i class="fa-solid fa-check text-black mr-2"></i> Wedding Nails</li>
+                            <li><i class="fa-solid fa-check text-black mr-2"></i> Paket Grup</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEKSI MASALAH & SOLUSI -->
         <section id="about" class="section-padding bg-white">
             <div class="max-w-6xl mx-auto px-6">
                 <div class="grid md:grid-cols-2 gap-16 items-center">
+                    <!-- Galeri Visual di Sisi Kiri -->
                     <div class="grid grid-cols-2 gap-3 max-w-md">
-                        <!-- Foto kecil ini tidak memakai overlay hitam sesuai permintaan fokus -->
-                        <div class="aspect-[4/5] img-wrapper translate-y-6 !after:hidden">
-                            <img src="https://i.pinimg.com/736x/3c/1f/06/3c1f06be9d7ad3b7df22df51a0145e88.jpg" alt="[Kuku Estetik 1]">
+                        <div class="aspect-[4/5] img-wrapper translate-y-6">
+                            <img src="https://i.pinimg.com/736x/c5/c9/90/c5c9900a4e5a631b69f3b7dd55f2af35.jpg" alt="[Karya Kuku 1]">
                         </div>
-                        <div class="aspect-[4/5] img-wrapper !after:hidden">
-                            <img src="https://i.pinimg.com/736x/bb/33/2f/bb332f71428f07a81c0f552486fc2ffc.jpg" alt="[Kuku Estetik 2]">
+                        <div class="aspect-[4/5] img-wrapper">
+                            <img src="https://i.pinimg.com/736x/bb/33/2f/bb332f71428f07a81c0f552486fc2ffc.jpg" alt="[Karya Kuku 2]">
                         </div>
-                        <div class="aspect-[4/5] img-wrapper translate-y-6 !after:hidden">
-                            <img src="https://i.pinimg.com/736x/8f/87/53/8f875354c87a6b117d8dbb922de6cd07.jpg" alt="[Kuku Estetik 3]">
+                        <div class="aspect-[4/5] img-wrapper translate-y-6">
+                            <img src="https://i.pinimg.com/736x/8f/87/53/8f875354c87a6b117d8dbb922de6cd07.jpg" alt="[Karya Kuku 3]">
                         </div>
-                        <div class="aspect-[4/5] img-wrapper !after:hidden">
-                            <img src="https://i.pinimg.com/736x/65/8c/17/658c17e2def6fd3bb5fa38d4971418a9.jpg" alt="[Kuku Estetik 4]">
+                        <div class="aspect-[4/5] img-wrapper">
+                            <img src="https://i.pinimg.com/736x/65/8c/17/658c17e2def6fd3bb5fa38d4971418a9.jpg" alt="[Karya Kuku 4]">
                         </div>
                     </div>
+                    <!-- Konten Solusi Spesifik Segmen -->
                     <div>
-                        <span class="text-[9px] font-bold uppercase tracking-widest text-gray-300 block mb-2 italic">The Struggle is Real</span>
-                        <h2 class="font-syne text-4xl font-bold mb-6 uppercase leading-tight">Kuku rusak atau desain yang <span class="bg-yellow-100">itu-itu saja?</span></h2>
-                        <div class="space-y-8 mb-10">
+                        <h2 class="font-syne text-4xl font-bold mb-10 uppercase leading-tight">Kuku rusak atau desain yang <span class="bg-yellow-100 italic">membosankan?</span></h2>
+                        <div class="space-y-12">
                             <div class="flex gap-5">
-                                <span class="text-2xl font-bold text-gray-100">01</span>
+                                <span class="text-2xl font-bold text-gray-200 font-syne">01</span>
                                 <div>
-                                    <h4 class="font-bold text-[11px] uppercase tracking-widest mb-1">Masalah: Damage Control</h4>
-                                    <p class="text-gray-400 text-xs font-light">Banyak salon mengabaikan kesehatan kuku demi hasil instan. Hasilnya? Kuku tipis dan rapuh setelah gel dilepas.</p>
+                                    <h4 class="font-bold text-[11px] uppercase tracking-widest mb-2 text-gray-400">Untuk Si Profesional: Ketahanan Maksimal</h4>
+                                    <p class="text-gray-500 text-sm font-light leading-relaxed">
+                                        Gel premium kami menjamin kuku tetap indah hingga <span class="text-black font-bold">4 minggu tanpa chipping</span>. Sempurna untuk Anda yang tidak punya banyak waktu luang.
+                                    </p>
                                 </div>
                             </div>
                             <div class="flex gap-5">
-                                <span class="text-2xl font-bold text-gray-100">02</span>
+                                <span class="text-2xl font-bold text-gray-200 font-syne">02</span>
                                 <div>
-                                    <h4 class="font-bold text-[11px] uppercase tracking-widest mb-1">Masalah: Boring Templates</h4>
-                                    <p class="text-gray-400 text-xs font-light">Capek dengan katalog desain yang sudah ketinggalan zaman? Kamu butuh artist yang paham tren TikTok dan Pinterest terbaru.</p>
+                                    <h4 class="font-bold text-[11px] uppercase tracking-widest mb-2 text-gray-400">Untuk Trendsetter: Kreativitas Tanpa Batas</h4>
+                                    <p class="text-gray-500 text-sm font-light leading-relaxed">
+                                        Bawa referensi dari Pinterest mana pun! Artist kami mahir membuat <span class="text-black font-bold">Custom 3D Art & Chrome</span> yang unik dan sedang viral.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="flex gap-5">
+                                <span class="text-2xl font-bold text-gray-200 font-syne">03</span>
+                                <div>
+                                    <h4 class="font-bold text-[11px] uppercase tracking-widest mb-2 text-gray-400">Untuk Pengantin: Teknik Bersih & Sehat</h4>
+                                    <p class="text-gray-500 text-sm font-light leading-relaxed">
+                                        Menggunakan teknik <span class="text-black font-bold">Russian Manicure</span> untuk memastikan kutikula bersih sempurna tanpa merusak kuku asli di hari bahagia Anda.
+                                    </p>
                                 </div>
                             </div>
                         </div>
-                        <div class="bg-gray-50 p-8 border-l-2 border-black">
-                            <h4 class="font-bold text-[10px] uppercase tracking-widest mb-3">Our Solution</h4>
-                            <p class="text-gray-500 text-xs font-light leading-relaxed">Luxe Nails menggunakan <strong>Medical-Grade Cuticle Care</strong> dan produk gel vegan yang memperkuat kuku, dipadukan dengan artist yang spesialis di desain 3D & Chrome.</p>
-                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="services" class="section-padding">
-            <div class="max-w-6xl mx-auto px-6">
-                <div class="mb-16">
-                    <h2 class="font-syne text-4xl font-bold tracking-tighter uppercase mb-4">Service Menu.</h2>
-                    <p class="text-gray-400 uppercase text-[9px] font-bold tracking-[0.3em]">Investasi terbaik adalah penampilanmu</p>
-                </div>
-
-                <div class="space-y-0 border-t border-gray-100">
-                    <div class="service-card py-10 flex flex-col md:flex-row justify-between items-start md:items-center">
-                        <div class="max-w-xl">
-                            <h3 class="font-syne text-xl font-bold mb-2 uppercase">Russian Manicure & Solid Gel</h3>
-                            <p class="text-gray-500 text-xs font-light">Teknik pembersihan kutikula paling bersih. Termasuk 1 warna gel premium.</p>
-                        </div>
-                        <div class="mt-4 md:mt-0 text-right">
-                            <span class="text-xl font-bold font-syne">IDR 175K</span>
-                        </div>
-                    </div>
-
-                    <div class="service-card py-10 flex flex-col md:flex-row justify-between items-start md:items-center">
-                        <div class="max-w-xl">
-                            <h3 class="font-syne text-xl font-bold mb-2 uppercase">The Pinterest Set (Custom Art)</h3>
-                            <p class="text-gray-500 text-xs font-light">Custom design sesukamu! Chrome, hand-painted lines, atau gradasi.</p>
-                        </div>
-                        <div class="mt-4 md:mt-0 text-right">
-                            <span class="text-xl font-bold font-syne">Mulai 250K</span>
-                        </div>
-                    </div>
-
-                    <div class="service-card py-10 flex flex-col md:flex-row justify-between items-start md:items-center">
-                        <div class="max-w-xl">
-                            <h3 class="font-syne text-xl font-bold mb-2 uppercase">Extreme 3D & Extensions</h3>
-                            <p class="text-gray-500 text-xs font-light">Ekstensi kuku dengan Jelly Gel dan dekorasi 3D ekstra.</p>
-                        </div>
-                        <div class="mt-4 md:mt-0 text-right">
-                            <span class="text-xl font-bold font-syne">IDR 450K+</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Galeri dengan Efek Hitam (Overlay) Sebelum Hover -->
-        <section id="work" class="section-padding bg-gray-50">
-            <div class="max-w-6xl mx-auto px-6">
-                <div class="flex justify-between items-end mb-12">
-                    <div>
-                        <span class="text-[9px] font-bold uppercase tracking-widest text-gray-400 block mb-2 italic">Gallery</span>
-                        <h2 class="font-syne text-4xl font-bold uppercase tracking-tight">Recent Drop.</h2>
-                    </div>
-                    <a href="#" class="text-[10px] font-bold border-b border-black pb-1 uppercase tracking-tighter">View on Instagram</a>
-                </div>
-
-                <div class="gallery-container">
-                    <div class="col-span-12 md:col-span-8 h-[400px] img-wrapper relative">
-                        <img src="https://i.pinimg.com/736x/71/56/b5/7156b53d88914cfc0a3582c54562a1c7.jpg" alt="[Koleksi Baru 1]">
-                        <div class="absolute bottom-4 left-4 bg-white/80 backdrop-blur px-3 py-1 rounded-full text-[8px] font-bold uppercase tracking-widest overlay-label">Chrome Obsession</div>
-                    </div>
-                    <div class="col-span-12 md:col-span-4 h-[400px] img-wrapper">
-                        <img src="https://i.pinimg.com/736x/42/90/8e/42908e5bf66dc3c80dce1e5de1d812bb.jpg" alt="[Koleksi Baru 2]">
-                    </div>
-                    <div class="col-span-12 md:col-span-6 h-[350px] img-wrapper">
-                        <img src="https://i.pinimg.com/1200x/84/69/96/84699642fd8dc8cb64e3554b23675de6.jpg" alt="[Koleksi Baru 3]">
-                    </div>
-                    <div class="col-span-12 md:col-span-6 h-[350px] img-wrapper">
-                        <img src="https://i.pinimg.com/736x/eb/4d/ac/eb4dac0acc7e5d7076ce9edff870be9d.jpg" alt="[Koleksi Baru 4]">
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <footer id="booking" class="py-32 bg-white">
-            <div class="max-w-6xl mx-auto px-6">
+        <!-- SEKSI KONTAK & RESERVASI -->
+        <section id="booking" class="py-32 bg-white border-t border-gray-100">
+            <div class="max-w-7xl mx-auto px-6">
                 <div class="grid md:grid-cols-2 gap-24 items-start">
-                    <div>
-                        <h2 class="font-syne text-5xl font-bold mb-8 uppercase leading-none tracking-tight">Ready to <br><span class="text-gray-300 italic">glow up?</span></h2>
-                        <p class="text-gray-400 text-xs font-light mb-12 max-w-sm uppercase tracking-widest leading-relaxed">Slot per hari sangat terbatas karena kami mengutamakan kualitas, bukan kuantitas. Pastikan kamu reservasi H-3.</p>
+                    <div class="pt-10">
+                        <h2 class="font-syne text-5xl md:text-7xl font-bold mb-8 uppercase leading-none tracking-tighter">Ready to <br><span class="text-gray-300 italic">glow up?</span></h2>
+                        <p class="text-gray-400 text-[10px] uppercase font-bold tracking-[0.2em] mb-12 max-w-sm leading-relaxed">
+                            Slot per hari terbatas untuk menjaga kualitas. Kami sarankan reservasi minimal H-3 dari jadwal Anda.
+                        </p>
                         
                         <div class="space-y-10">
-                            <div class="flex items-center gap-5">
-                                <div class="w-12 h-12 rounded-full bg-black flex items-center justify-center text-white text-sm shadow-lg">
-                                    <i class="fa-solid fa-location-dot"></i>
-                                </div>
+                            <div class="flex items-center gap-6">
+                                <div class="w-12 h-12 rounded-full bg-black flex items-center justify-center text-white text-sm"><i class="fa-solid fa-location-dot"></i></div>
                                 <div>
-                                    <span class="text-[8px] font-bold text-gray-300 uppercase tracking-widest block mb-1">Our Studio</span>
-                                    <span class="text-xs font-bold uppercase tracking-wider">District 8, Level 12, SCBD Jakarta Selatan</span>
+                                    <span class="text-[8px] font-black text-gray-300 uppercase block mb-1">Lokasi Kami</span>
+                                    <span class="text-xs font-bold uppercase tracking-tight">District 8, Level 12, SCBD Jakarta</span>
                                 </div>
                             </div>
-                            <div class="flex items-center gap-5">
-                                <div class="w-12 h-12 rounded-full border border-gray-100 flex items-center justify-center text-sm">
-                                    <i class="fa-brands fa-whatsapp"></i>
-                                </div>
+                            <div class="flex items-center gap-6">
+                                <div class="w-12 h-12 rounded-full bg-green-50 flex items-center justify-center text-green-600 text-sm"><i class="fa-brands fa-whatsapp"></i></div>
                                 <div>
-                                    <span class="text-[8px] font-bold text-gray-300 uppercase tracking-widest block mb-1">WhatsApp Only</span>
-                                    <span class="text-xs font-bold uppercase tracking-wider">+62 812 3456 7890</span>
+                                    <span class="text-[8px] font-black text-gray-300 uppercase block mb-1">WhatsApp Fast Respon</span>
+                                    <span class="text-xs font-bold uppercase tracking-tight">+62 812-3456-7890</span>
                                 </div>
                             </div>
-                        </div>
-                        
-                        <div class="mt-16">
-                            <a href="#" class="bg-black text-white px-8 py-4 text-[10px] font-bold uppercase tracking-[0.2em] inline-flex items-center gap-3 hover:opacity-80 transition">
-                                <i class="fa-brands fa-whatsapp"></i> Book via WhatsApp
-                            </a>
                         </div>
                     </div>
 
-                    <div class="bg-white p-2">
-                        <h3 class="font-syne text-xs font-bold uppercase tracking-[0.3em] mb-12">Quick Inquiry</h3>
-                        <form class="space-y-10">
+                    <!-- Form Inquiry -->
+                    <div class="bg-white p-12 rounded-[40px] border border-gray-50 shadow-2xl shadow-gray-100">
+                        <h3 class="font-syne text-[10px] font-black uppercase tracking-[0.4em] mb-14 text-center">Quick Inquiry</h3>
+                        <form class="space-y-12">
                             <div>
-                                <label class="form-label">Your Name</label>
-                                <input type="text" class="form-input" placeholder="">
+                                <label class="floating-label">Nama Anda</label>
+                                <input type="text" class="form-input" placeholder="Siapa nama Anda?">
                             </div>
                             <div>
-                                <label class="form-label">Ideal Service</label>
-                                <select class="form-input appearance-none">
-                                    <option>Russian Manicure</option>
-                                    <option>The Pinterest Set</option>
-                                    <option>Extreme 3D Art</option>
+                                <label class="floating-label">Pilih Layanan</label>
+                                <select class="form-input appearance-none bg-transparent">
+                                    <option>Signature Russian Manicure</option>
+                                    <option>Custom 3D Pinterest Art</option>
+                                    <option>Chrome & Gel Extension</option>
+                                    <option>Bridal Package</option>
                                 </select>
                             </div>
                             <div>
-                                <label class="form-label">Reference Link (Optional)</label>
-                                <input type="text" class="form-input" placeholder="IG/Pinterest link...">
+                                <label class="floating-label">Catatan/Link Pinterest</label>
+                                <input type="text" class="form-input" placeholder="Tempel link referensi desain...">
                             </div>
-                            <button type="button" class="w-full bg-black text-white py-5 text-[10px] font-bold uppercase tracking-[0.3em] hover:bg-gray-900 transition mt-4">
-                                Submit Request
+                            <button type="button" class="w-full bg-black text-white py-6 text-[11px] font-black uppercase tracking-[0.4em] hover:bg-gray-800 transition-all active:scale-[0.98]">
+                                Kirim Permintaan
                             </button>
                         </form>
                     </div>
                 </div>
+            </div>
+        </section>
 
-                <div class="mt-32 pt-12 border-t border-gray-100 flex flex-col md:flex-row justify-between items-center gap-8">
-                    <a href="#" class="font-syne text-2xl font-black uppercase tracking-tighter">Luxe Nails.</a>
-                    <div class="flex gap-10 text-[9px] font-bold uppercase tracking-[0.3em] text-gray-400">
-                        <a href="#" class="hover:text-black transition">Why Us</a>
-                        <a href="#" class="hover:text-black transition">Menu</a>
-                        <a href="#" class="hover:text-black transition">Gallery</a>
-                        <a href="#" class="hover:text-black transition">Instagram</a>
-                    </div>
-                    <p class="text-gray-300 text-[9px] uppercase tracking-widest">© 2024 Luxe Nails Jakarta</p>
-                </div>
+        <!-- FOOTER -->
+        <footer class="py-12 border-t border-gray-100">
+            <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
+                <a href="#" class="font-syne text-lg font-extrabold tracking-tighter uppercase">Luxe Nails.</a>
+                <nav class="flex gap-8 text-[8px] font-bold uppercase tracking-widest text-gray-400">
+                    <a href="#about" class="hover:text-black">Solusi</a>
+                    <a href="#segments" class="hover:text-black">Layanan</a>
+                    <a href="#work" class="hover:text-black">Galeri</a>
+                    <a href="#" class="hover:text-black">Instagram</a>
+                </nav>
+                <p class="text-[8px] font-bold text-gray-300 uppercase tracking-widest">© 2024 Luxe Nails Studio Jakarta</p>
             </div>
         </footer>
     </main>
+
 </body>
 </html>
