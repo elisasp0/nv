@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LuxeNails | Express Your Inner Aesthetic</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- AOS Library for Scroll Animations -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
@@ -18,8 +17,8 @@
             font-family: 'Playfair Display', serif;
         }
         .glass-card {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.3);
         }
         .gradient-text {
@@ -28,40 +27,86 @@
             -webkit-text-fill-color: transparent;
         }
         
-        /* Floating Animation for Hero Images */
+        /* Gallery Interactivity */
+        .nail-card {
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+        }
+        .nail-card img {
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .nail-card:hover img {
+            transform: scale(1.1);
+        }
+        .nail-card .overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .nail-card:hover .overlay {
+            opacity: 1;
+        }
+
+        /* Modal Animation */
+        #galleryModal {
+            display: none;
+            z-index: 100;
+        }
+        #galleryModal.active {
+            display: flex;
+        }
+
         @keyframes float {
             0% { transform: translateY(0px) rotate(3deg); }
-            50% { transform: translateY(-20px) rotate(5deg); }
+            50% { transform: translateY(-15px) rotate(5deg); }
             100% { transform: translateY(0px) rotate(3deg); }
         }
         .animate-float {
-            animation: float 6s ease-in-out infinite;
+            animation: float 5s ease-in-out infinite;
         }
 
-        /* Smooth Card Hover */
-        .nail-card img {
-            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .nail-card:hover img {
-            transform: scale(1.1) rotate(2deg);
-        }
-        
         .price-card {
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         .price-card:hover {
-            transform: translateY(-15px);
-            box-shadow: 0 25px 50px -12px rgba(225, 29, 72, 0.15);
+            transform: translateY(-12px);
         }
 
-        /* Pulse for Buttons */
-        @keyframes custom-pulse {
-            0% { box-shadow: 0 0 0 0 rgba(225, 29, 72, 0.4); }
-            70% { box-shadow: 0 0 0 15px rgba(225, 29, 72, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(225, 29, 72, 0); }
+        .btn-fancy {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
         }
-        .btn-pulse {
-            animation: custom-pulse 2s infinite;
+        .btn-fancy::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+        .btn-fancy:hover::after {
+            left: 100%;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #fb7185;
+            border-radius: 10px;
         }
     </style>
 </head>
@@ -69,49 +114,31 @@
 
     <!-- Navigasi -->
     <nav class="fixed w-full z-50 px-6 py-4">
-        <div class="max-w-7xl mx-auto flex justify-between items-center glass-card rounded-full px-8 py-3 shadow-sm transition-all duration-500" data-aos="fade-down">
+        <div class="max-w-7xl mx-auto flex justify-between items-center glass-card rounded-full px-8 py-3 shadow-md">
             <div class="text-2xl font-extrabold tracking-tighter gradient-text">LUXENAILS.</div>
             <div class="hidden md:flex space-x-8 font-medium text-sm uppercase tracking-widest">
-                <a href="#gallery" class="hover:text-rose-500 transition relative group">
-                    Gallery
-                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-rose-500 transition-all group-hover:w-full"></span>
-                </a>
-                <a href="#pricelist" class="hover:text-rose-500 transition relative group">
-                    Price List
-                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-rose-500 transition-all group-hover:w-full"></span>
-                </a>
-                <a href="#vibe" class="hover:text-rose-500 transition relative group">
-                    The Vibe
-                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-rose-500 transition-all group-hover:w-full"></span>
-                </a>
+                <a href="#gallery" class="hover:text-rose-500 transition">Gallery</a>
+                <a href="#pricelist" class="hover:text-rose-500 transition">Price List</a>
+                <a href="#booking" class="hover:text-rose-500 transition">Booking</a>
             </div>
-            <a href="#booking" class="bg-rose-500 text-white px-6 py-2 rounded-full text-sm font-bold hover:bg-rose-600 transition shadow-lg shadow-rose-200 active:scale-95">Book Now</a>
+            <a href="#booking" class="bg-rose-500 text-white px-6 py-2 rounded-full text-sm font-bold hover:bg-rose-600 transition shadow-lg shadow-rose-200">Book Now</a>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section class="relative min-h-screen flex items-center pt-20 overflow-hidden">
-        <div class="absolute top-20 -left-20 w-72 h-72 bg-rose-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"></div>
-        <div class="absolute bottom-10 -right-20 w-96 h-96 bg-orange-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"></div>
-        
+    <section class="relative min-h-screen flex items-center pt-20">
         <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center relative z-10">
-            <div data-aos="fade-right" data-aos-duration="1000">
+            <div data-aos="fade-right">
                 <span class="inline-block px-4 py-1 rounded-full bg-rose-100 text-rose-600 text-xs font-bold uppercase tracking-widest mb-6">#1 Gen Z Nail Studio</span>
                 <h1 class="text-6xl md:text-8xl font-serif leading-tight mb-6">Main <br><span class="italic text-rose-500">Character</span> <br>Energy.</h1>
-                <p class="text-gray-500 text-lg mb-8 max-w-md leading-relaxed">Tingkatkan estetikamu dengan nail art kustom yang berbicara lebih keras daripada kata-kata.</p>
-                <div class="flex flex-wrap gap-4">
-                    <a href="#booking" class="px-8 py-4 bg-gray-900 text-white rounded-2xl font-bold hover:bg-black transition flex items-center gap-2 shadow-xl shadow-gray-200 btn-pulse">
-                        Reservasi Sekarang <i class="fa-solid fa-arrow-right text-xs"></i>
-                    </a>
-                </div>
+                <p class="text-gray-500 text-lg mb-8 max-w-md">Tingkatkan estetikamu dengan nail art kustom yang berbicara lebih keras daripada kata-kata.</p>
+                <a href="#booking" class="inline-block px-8 py-4 bg-gray-900 text-white rounded-2xl font-bold hover:bg-black transition shadow-xl btn-fancy">
+                    Reservasi Sekarang <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+                </a>
             </div>
-            <div class="relative" data-aos="zoom-in" data-aos-duration="1200">
-                <div class="rounded-[2rem] overflow-hidden shadow-2xl animate-float">
-                    <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&q=80&w=800" alt="Estetika Nail Art" class="w-full object-cover h-[500px]">
-                </div>
-                <div class="absolute -bottom-6 -left-6 glass-card p-6 rounded-2xl shadow-xl max-w-[200px] -rotate-6" data-aos="fade-up" data-aos-delay="500">
-                    <p class="text-xs font-bold text-rose-500 mb-1 italic">Trending Design</p>
-                    <p class="text-sm font-semibold text-gray-700">Chrome Heart & 3D Charms</p>
+            <div class="relative" data-aos="zoom-in">
+                <div class="rounded-[2.5rem] overflow-hidden shadow-2xl animate-float">
+                    <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&q=80&w=800" alt="Nail Art Image" class="w-full h-[500px] object-cover">
                 </div>
             </div>
         </div>
@@ -120,194 +147,188 @@
     <!-- Gallery Section -->
     <section id="gallery" class="py-24 bg-white">
         <div class="max-w-7xl mx-auto px-6 text-center mb-16" data-aos="fade-up">
-            <h2 class="text-4xl font-serif mb-4">Inspirasi Kami</h2>
-            <p class="text-gray-400 italic">Lihat hasil karya terbaik kami untuk inspirasi gayamu.</p>
+            <h2 class="text-5xl font-serif mb-4 italic">Inspirasi Kami</h2>
+            <p class="text-gray-400">Lihat hasil karya terbaik kami untuk inspirasi gayamu.</p>
         </div>
-        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-8">
-            <!-- The Clean Girl -->
-            <div class="group nail-card" data-aos="fade-up" data-aos-delay="100">
-                <div class="relative rounded-3xl overflow-hidden mb-4 h-80 shadow-lg">
-                    <img src="https://i.pinimg.com/736x/3a/aa/ea/3aaaea406679701eb1ef7fc3a369f3a1.jpg" alt="Gaya Clean Girl" class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <span class="text-white border border-white px-6 py-2 rounded-full font-bold">View Detail</span>
+        
+        <div class="grid md:grid-cols-3 gap-8 px-6 max-w-7xl mx-auto">
+            <!-- Card 1 -->
+            <div class="group" data-aos="fade-up" data-aos-delay="100">
+                <div class="nail-card rounded-3xl shadow-lg mb-4" onclick="openGallery('https://i.pinimg.com/736x/3a/aa/ea/3aaaea406679701eb1ef7fc3a369f3a1.jpg', 'The Clean Girl', 'Nuansa nude dan desain klasik yang memberikan kesan kuku bersih dan elegan setiap saat.')">
+                    <img src="https://i.pinimg.com/736x/3a/aa/ea/3aaaea406679701eb1ef7fc3a369f3a1.jpg" class="h-96 w-full object-cover" alt="Clean Girl">
+                    <div class="overlay">
+                        <button class="bg-white/20 backdrop-blur-md text-white border border-white/40 px-6 py-2 rounded-full font-bold hover:bg-white hover:text-rose-500 transition">View Detail</button>
                     </div>
                 </div>
-                <h3 class="text-xl font-serif mb-1">The Clean Girl</h3>
-                <p class="text-gray-400 text-xs uppercase tracking-widest">Nude & Klasik</p>
+                <h3 class="text-xl font-bold">The Clean Girl</h3>
+                <p class="text-gray-400 text-sm uppercase tracking-widest">Nude & Klasik</p>
             </div>
-            <!-- Y2K Maximalist -->
-            <div class="group nail-card" data-aos="fade-up" data-aos-delay="200">
-                <div class="relative rounded-3xl overflow-hidden mb-4 h-80 shadow-lg">
-                    <img src="https://i.pinimg.com/736x/f4/db/fd/f4dbfdc0825f4c911a11febd30027704.jpg" alt="Estetika Y2K" class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <span class="text-white border border-white px-6 py-2 rounded-full font-bold">View Detail</span>
+
+            <!-- Card 2 -->
+            <div class="group" data-aos="fade-up" data-aos-delay="200">
+                <div class="nail-card rounded-3xl shadow-lg mb-4" onclick="openGallery('https://i.pinimg.com/736x/f4/db/fd/f4dbfdc0825f4c911a11febd30027704.jpg', 'Y2K Maximalist', 'Gabungan warna neon dan tekstur chrome yang berani untuk kamu yang ingin jadi pusat perhatian.')">
+                    <img src="https://i.pinimg.com/736x/f4/db/fd/f4dbfdc0825f4c911a11febd30027704.jpg" class="h-96 w-full object-cover" alt="Y2K">
+                    <div class="overlay">
+                        <button class="bg-white/20 backdrop-blur-md text-white border border-white/40 px-6 py-2 rounded-full font-bold hover:bg-white hover:text-rose-500 transition">View Detail</button>
                     </div>
                 </div>
-                <h3 class="text-xl font-serif mb-1">Y2K Maximalist</h3>
-                <p class="text-gray-400 text-xs uppercase tracking-widest">Neon & Chrome</p>
+                <h3 class="text-xl font-bold">Y2K Maximalist</h3>
+                <p class="text-gray-400 text-sm uppercase tracking-widest">Neon & Chrome</p>
             </div>
-            <!-- Artistic Vibe -->
-            <div class="group nail-card" data-aos="fade-up" data-aos-delay="300">
-                <div class="relative rounded-3xl overflow-hidden mb-4 h-80 shadow-lg">
-                    <img src="https://i.pinimg.com/736x/2c/85/fd/2c85fd4e7c79c40cd241866522881eeb.jpg" alt="Seni Kustom" class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <span class="text-white border border-white px-6 py-2 rounded-full font-bold">View Detail</span>
+
+            <!-- Card 3 -->
+            <div class="group" data-aos="fade-up" data-aos-delay="300">
+                <div class="nail-card rounded-3xl shadow-lg mb-4" onclick="openGallery('https://i.pinimg.com/736x/2c/85/fd/2c85fd4e7c79c40cd241866522881eeb.jpg', 'Artistic Vibe', 'Seni lukis tangan manual dengan detail rumit yang menjadikan kuku Anda sebuah mahakarya.')">
+                    <img src="https://i.pinimg.com/736x/2c/85/fd/2c85fd4e7c79c40cd241866522881eeb.jpg" class="h-96 w-full object-cover" alt="Artistic">
+                    <div class="overlay">
+                        <button class="bg-white/20 backdrop-blur-md text-white border border-white/40 px-6 py-2 rounded-full font-bold hover:bg-white hover:text-rose-500 transition">View Detail</button>
                     </div>
                 </div>
-                <h3 class="text-xl font-serif mb-1">Artistic Vibe</h3>
-                <p class="text-gray-400 text-xs uppercase tracking-widest">Seni Lukis Tangan</p>
+                <h3 class="text-xl font-bold">Artistic Vibe</h3>
+                <p class="text-gray-400 text-sm uppercase tracking-widest">Seni Lukis Tangan</p>
             </div>
         </div>
     </section>
 
-    <!-- Pricelist Section -->
+    <!-- Modal Gallery -->
+    <div id="galleryModal" class="fixed inset-0 bg-black/90 items-center justify-center p-6 transition-all duration-300">
+        <button onclick="closeGallery()" class="absolute top-6 right-6 text-white text-3xl hover:rotate-90 transition duration-300">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        
+        <div class="max-w-4xl w-full bg-white rounded-[2rem] overflow-hidden flex flex-col md:flex-row shadow-2xl">
+            <div class="md:w-1/2 h-80 md:h-[500px]">
+                <img id="modalImg" src="" class="w-full h-full object-cover" alt="Detail Image">
+            </div>
+            <div class="md:w-1/2 p-8 md:p-12 flex flex-col justify-center">
+                <span class="text-rose-500 font-bold uppercase tracking-widest text-xs mb-2">Portfolio Detail</span>
+                <h2 id="modalTitle" class="text-3xl font-serif italic mb-6">Judul Gambar</h2>
+                <p id="modalDesc" class="text-gray-500 leading-relaxed mb-8">Deskripsi akan muncul di sini.</p>
+                <div class="flex gap-4">
+                    <a href="#booking" onclick="closeGallery()" class="bg-rose-500 text-white px-8 py-3 rounded-xl font-bold shadow-lg shadow-rose-200 hover:bg-rose-600 transition">Book Similar Look</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Price List Section -->
     <section id="pricelist" class="py-24 bg-[#FFF9F5]">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16" data-aos="zoom-in">
-                <span class="text-rose-500 font-bold tracking-widest text-xs uppercase">Pilih Paketmu</span>
-                <h2 class="text-5xl font-serif mt-2 italic">Investasi untuk Kecantikanmu</h2>
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-5xl font-serif italic">The Price List</h2>
             </div>
-            
             <div class="grid md:grid-cols-3 gap-8">
-                <!-- Basic -->
-                <div class="bg-white p-10 rounded-[3rem] border border-gray-100 shadow-xl price-card" data-aos="flip-left" data-aos-delay="100">
-                    <h3 class="text-2xl font-serif mb-2">Essential</h3>
-                    <div class="flex items-baseline gap-1 mb-6">
-                        <span class="text-sm font-bold text-gray-400 italic">Mulai Dari</span>
-                        <span class="text-4xl font-extrabold">125k</span>
-                    </div>
-                    <ul class="space-y-4 mb-10 flex-grow text-gray-500 text-sm">
-                        <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-rose-500"></i> Russian Manicure</li>
-                        <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-rose-500"></i> Single Color Gel</li>
-                        <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-rose-500"></i> Vitamin Kuku</li>
+                <div class="bg-white p-10 rounded-[3rem] shadow-xl border border-rose-50 price-card" data-aos="fade-up" data-aos-delay="100">
+                    <h3 class="text-2xl font-serif mb-4">Essential</h3>
+                    <p class="text-4xl font-bold mb-6 text-rose-500">125k</p>
+                    <ul class="space-y-4 mb-8 text-gray-500">
+                        <li><i class="fa-solid fa-check text-rose-500 mr-2"></i> Russian Manicure</li>
+                        <li><i class="fa-solid fa-check text-rose-500 mr-2"></i> Single Color Gel</li>
+                        <li><i class="fa-solid fa-check text-rose-500 mr-2"></i> Vitamin Kuku</li>
                     </ul>
-                    <a href="#booking" class="block w-full py-4 border-2 border-gray-900 rounded-2xl font-bold hover:bg-gray-900 hover:text-white transition text-center active:scale-95">Pilih Paket</a>
+                    <a href="#booking" class="block text-center py-3 border-2 border-gray-900 rounded-xl font-bold hover:bg-gray-900 hover:text-white transition">Pilih Paket</a>
                 </div>
-
-                <!-- Premium -->
-                <div class="bg-white p-10 rounded-[3rem] border-2 border-rose-300 shadow-2xl price-card relative overflow-hidden" data-aos="flip-left" data-aos-delay="200">
-                    <div class="absolute top-0 right-0 bg-rose-500 text-white px-6 py-2 rounded-bl-3xl text-xs font-bold uppercase tracking-widest animate-pulse">Paling Laris</div>
-                    <h3 class="text-2xl font-serif mb-2">Signature</h3>
-                    <div class="flex items-baseline gap-1 mb-6">
-                        <span class="text-sm font-bold text-gray-400 italic">Mulai Dari</span>
-                        <span class="text-4xl font-extrabold">250k</span>
-                    </div>
-                    <ul class="space-y-4 mb-10 flex-grow text-gray-500 text-sm">
-                        <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-rose-500"></i> Semua di Essential</li>
-                        <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-rose-500"></i> Desain French / Ombre</li>
-                        <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-rose-500"></i> Aksesoris Sederhana</li>
+                <!-- Signature Package (Highlighted) -->
+                <div class="bg-white p-10 rounded-[3rem] shadow-2xl border-2 border-rose-200 price-card scale-105 z-10" data-aos="fade-up" data-aos-delay="200">
+                    <div class="inline-block px-4 py-1 bg-rose-500 text-white text-[10px] font-bold rounded-full mb-4 uppercase">Terlaris</div>
+                    <h3 class="text-2xl font-serif mb-4">Signature</h3>
+                    <p class="text-4xl font-bold mb-6 text-rose-500">250k</p>
+                    <ul class="space-y-4 mb-8 text-gray-500">
+                        <li><i class="fa-solid fa-check text-rose-500 mr-2"></i> Semua di Essential</li>
+                        <li><i class="fa-solid fa-check text-rose-500 mr-2"></i> Desain French / Ombre</li>
+                        <li><i class="fa-solid fa-check text-rose-500 mr-2"></i> Chrome / Cat Eye</li>
                     </ul>
-                    <a href="#booking" class="block w-full py-4 bg-rose-500 text-white rounded-2xl font-bold hover:bg-rose-600 transition text-center shadow-lg active:scale-95">Pilih Paket</a>
+                    <a href="#booking" class="block text-center py-3 bg-rose-500 text-white rounded-xl font-bold hover:bg-rose-600 transition shadow-lg">Pilih Paket</a>
                 </div>
-
-                <!-- Art -->
-                <div class="bg-white p-10 rounded-[3rem] border border-gray-100 shadow-xl price-card" data-aos="flip-left" data-aos-delay="300">
-                    <h3 class="text-2xl font-serif mb-2">The Masterpiece</h3>
-                    <div class="flex items-baseline gap-1 mb-6">
-                        <span class="text-sm font-bold text-gray-400 italic">Mulai Dari</span>
-                        <span class="text-4xl font-extrabold">450k</span>
-                    </div>
-                    <ul class="space-y-4 mb-10 flex-grow text-gray-500 text-sm">
-                        <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-rose-500"></i> Semua di Signature</li>
-                        <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-rose-500"></i> Detail Lukis Tangan</li>
-                        <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-rose-500"></i> Sambung Kuku</li>
+                <div class="bg-white p-10 rounded-[3rem] shadow-xl border border-rose-50 price-card" data-aos="fade-up" data-aos-delay="300">
+                    <h3 class="text-2xl font-serif mb-4">Masterpiece</h3>
+                    <p class="text-4xl font-bold mb-6 text-rose-500">450k</p>
+                    <ul class="space-y-4 mb-8 text-gray-500">
+                        <li><i class="fa-solid fa-check text-rose-500 mr-2"></i> Semua di Signature</li>
+                        <li><i class="fa-solid fa-check text-rose-500 mr-2"></i> Aksesoris 3D Charms</li>
+                        <li><i class="fa-solid fa-check text-rose-500 mr-2"></i> Nail Extensions</li>
                     </ul>
-                    <a href="#booking" class="block w-full py-4 border-2 border-gray-900 rounded-2xl font-bold hover:bg-gray-900 hover:text-white transition text-center active:scale-95">Pilih Paket</a>
+                    <a href="#booking" class="block text-center py-3 border-2 border-gray-900 rounded-xl font-bold hover:bg-gray-900 hover:text-white transition">Pilih Paket</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Why Us (The Vibe) -->
-    <section id="vibe" class="py-24 bg-white overflow-hidden">
+    <!-- FOOTER & CONTACT -->
+    <section id="booking" class="relative py-24 bg-white overflow-hidden border-t border-gray-50">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="glass-card rounded-[3rem] p-12 md:p-20 flex flex-col md:flex-row gap-12 items-center bg-rose-50/30">
-                <div class="md:w-1/2" data-aos="fade-right">
-                    <h2 class="text-4xl md:text-5xl font-serif mb-8 leading-tight italic text-gray-900">Lebih dari sekadar <span class="text-rose-500">nail art</span>.</h2>
-                    <div class="space-y-6">
-                        <div class="flex gap-4 group cursor-default" data-aos="fade-up" data-aos-delay="100">
-                            <div class="w-12 h-12 rounded-2xl bg-rose-100 flex items-center justify-center text-rose-500 shrink-0 group-hover:bg-rose-500 group-hover:text-white transition-colors duration-300">
-                                <i class="fa-solid fa-leaf"></i>
+            <div class="grid md:grid-cols-12 gap-12 items-center">
+                <div class="md:col-span-5" data-aos="fade-right">
+                    <span class="text-rose-500 font-bold tracking-widest text-xs uppercase mb-4 block">Let's Talk</span>
+                    <h2 class="text-5xl md:text-6xl font-serif italic mb-8 leading-tight">Siap untuk <br><span class="text-rose-500">Nail Therapy?</span></h2>
+                    
+                    <div class="flex flex-col gap-4">
+                        <a href="https://wa.me/nomormu" class="flex items-center gap-4 bg-rose-500 text-white p-5 rounded-2xl hover:bg-rose-600 transition shadow-xl shadow-rose-100 group w-fit pr-12">
+                            <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center text-xl">
+                                <i class="fa-brands fa-whatsapp"></i>
                             </div>
                             <div>
-                                <h4 class="font-bold text-lg text-gray-700">Vegan & Bebas Racun</h4>
-                                <p class="text-gray-500 text-sm">Bahan aman untuk kuku asli & ramah lingkungan.</p>
+                                <p class="text-[10px] uppercase font-bold opacity-80">Booking Via</p>
+                                <p class="text-lg font-bold">WhatsApp Admin</p>
                             </div>
-                        </div>
-                        <!-- ... (Lainnya serupa) -->
-                    </div>
-                </div>
-                
-                <div class="md:w-1/2 grid grid-cols-2 gap-4">
-                    <div class="space-y-4 pt-12" data-aos="fade-up" data-aos-delay="200">
-                        <div class="group relative overflow-hidden rounded-3xl shadow-lg">
-                            <img src="https://i.pinimg.com/webp/1200x/2b/21/73/2b2173f1e01ab91985650facf27aa8aa.webp" class="h-64 w-full object-cover" alt="Vibe 1">
-                        </div>
-                        <div class="group relative overflow-hidden rounded-3xl shadow-lg">
-                            <img src="https://i.pinimg.com/1200x/1c/b5/09/1cb50961c674df1407306b24b7d76934.jpg" class="h-40 w-full object-cover" alt="Vibe 2">
-                        </div>
-                    </div>
-                    <div class="space-y-4" data-aos="fade-down" data-aos-delay="300">
-                        <div class="group relative overflow-hidden rounded-3xl shadow-lg">
-                            <img src="https://i.pinimg.com/736x/6b/0b/9b/6b0b9b546da93a25559e3a7b43df1bf3.jpg" class="h-40 w-full object-cover" alt="Vibe 3">
-                        </div>
-                        <div class="group relative overflow-hidden rounded-3xl shadow-lg">
-                            <img src="https://i.pinimg.com/736x/43/d2/e8/43d2e85d6e044f03a739df22fe1f33e6.jpg" class="h-64 w-full object-cover" alt="Vibe 4">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer / Reservasi -->
-    <footer id="booking" class="bg-gray-900 text-white py-20">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid md:grid-cols-2 gap-16 items-center border-b border-gray-800 pb-20">
-                <div data-aos="fade-right">
-                    <h2 class="text-5xl font-serif mb-6 leading-tight italic">Siap untuk <br>Nail Therapy?</h2>
-                    <div class="flex gap-4">
-                        <a href="https://wa.me/nomormu" class="px-8 py-4 bg-rose-500 rounded-2xl font-bold flex items-center gap-3 hover:bg-rose-600 transition shadow-lg btn-pulse">
-                            <i class="fa-brands fa-whatsapp text-xl"></i> Chat Admin
                         </a>
                     </div>
                 </div>
-                <div class="bg-white/5 p-8 rounded-[2rem] border border-white/10" data-aos="fade-left">
-                    <h4 class="text-xl font-bold mb-6">Studio Kami</h4>
-                    <p class="text-gray-400 mb-4 text-sm leading-relaxed"><i class="fa-solid fa-location-dot mr-2 text-rose-500"></i> Jl. Aesthetic No. 101, Jakarta Selatan</p>
-                    <div class="h-48 bg-gray-800 rounded-2xl overflow-hidden grayscale hover:grayscale-0 transition duration-500">
-                        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=600" alt="Lokasi" class="w-full h-full object-cover">
+
+                <div class="md:col-span-7" data-aos="fade-left">
+                    <div class="bg-[#FFF9F5] p-8 md:p-12 rounded-[3rem] border border-rose-100 shadow-sm overflow-hidden">
+                        <h4 class="text-2xl font-serif mb-8 italic">Visit Our Studio</h4>
+                        <div class="space-y-6">
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 bg-white rounded-xl shadow-sm flex items-center justify-center text-rose-500 shrink-0">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                </div>
+                                <p class="text-gray-500">Jl. Aesthetic No. 101, Jakarta Selatan</p>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 bg-white rounded-xl shadow-sm flex items-center justify-center text-rose-500 shrink-0">
+                                    <i class="fa-solid fa-clock"></i>
+                                </div>
+                                <p class="text-gray-500">Selasa - Minggu | 10:00 - 20:00 WIB</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="pt-10 flex flex-col md:flex-row justify-between items-center gap-6 opacity-50">
-                <div class="text-xl font-extrabold tracking-tighter">LUXENAILS.</div>
-                <p class="text-sm">© 2024 LuxeNails Studio. Crafted with love.</p>
+            
+            <div class="mt-24 pt-8 border-t border-gray-100 flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="text-xl font-extrabold tracking-tighter gradient-text">LUXENAILS.</div>
+                <p class="text-gray-400 text-xs">© 2024 LuxeNails Studio. Crafted with love.</p>
             </div>
         </div>
-    </footer>
+    </section>
 
-    <!-- AOS Animation Script -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Initialize AOS
-        AOS.init({
-            duration: 800,
-            easing: 'ease-in-out',
-            once: true,
-            mirror: false
-        });
+        AOS.init({ duration: 1000, once: true });
 
-        // Simple Parallax effect for hero shapes
-        window.addEventListener('mousemove', (e) => {
-            const shapes = document.querySelectorAll('.filter.blur-3xl');
-            const x = e.clientX / window.innerWidth;
-            const y = e.clientY / window.innerHeight;
-            
-            shapes.forEach((shape, index) => {
-                const speed = (index + 1) * 20;
-                shape.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
-            });
+        // Gallery Modal Logic
+        const modal = document.getElementById('galleryModal');
+        const modalImg = document.getElementById('modalImg');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalDesc = document.getElementById('modalDesc');
+
+        function openGallery(imgSrc, title, desc) {
+            modalImg.src = imgSrc;
+            modalTitle.innerText = title;
+            modalDesc.innerText = desc;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Stop scroll
+        }
+
+        function closeGallery() {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto'; // Enable scroll
+        }
+
+        // Close modal when clicking outside content
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) closeGallery();
         });
     </script>
 </body>
