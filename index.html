@@ -3,333 +3,255 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LuxeNails | Express Your Inner Aesthetic</title>
+    <title>Studio Kuku Profesional | Minimalist Nail Art</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;700;800&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --studio-bg: #FCFBFA;
+            --studio-accent: #1A1A1A;
+            --studio-secondary: #707070;
+            --studio-highlight: #E8C5B0;
+        }
+
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            scroll-behavior: smooth;
-        }
-        .font-serif {
-            font-family: 'Playfair Display', serif;
-        }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-        .gradient-text {
-            background: linear-gradient(to right, #e11d48, #fb7185);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        /* Gallery Interactivity */
-        .nail-card {
-            position: relative;
-            cursor: pointer;
-            overflow: hidden;
-        }
-        .nail-card img {
-            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .nail-card:hover img {
-            transform: scale(1.1);
-        }
-        .nail-card .overlay {
-            position: absolute;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.4);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        .nail-card:hover .overlay {
-            opacity: 1;
+            background-color: var(--studio-bg);
+            color: var(--studio-accent);
+            line-height: 1.6;
         }
 
-        /* Modal Animation */
-        #galleryModal {
-            display: none;
-            z-index: 100;
-        }
-        #galleryModal.active {
-            display: flex;
-        }
-
-        @keyframes float {
-            0% { transform: translateY(0px) rotate(3deg); }
-            50% { transform: translateY(-15px) rotate(5deg); }
-            100% { transform: translateY(0px) rotate(3deg); }
-        }
-        .animate-float {
-            animation: float 5s ease-in-out infinite;
-        }
-
-        .price-card {
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        .price-card:hover {
-            transform: translateY(-12px);
-        }
-
-        .btn-fancy {
+        /* Hero Image Container */
+        .hero-img-container {
+            height: calc(100vh - 100px);
             position: relative;
             overflow: hidden;
-            transition: all 0.3s ease;
         }
-        .btn-fancy::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
+
+        /* Clean Section Spacing */
+        .section-padding {
+            padding: 100px 0;
+        }
+
+        /* Subtle Hover Effect */
+        .service-card {
+            border-bottom: 1px solid #E5E5E5;
+            transition: all 0.4s ease;
+        }
+        .service-card:hover {
+            background-color: #f7f7f7;
+            padding-left: 20px;
+        }
+
+        /* Gallery Grid */
+        .grid-gallery {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 20px;
+        }
+        .gallery-photo {
+            background-color: #eee;
+            overflow: hidden;
+        }
+        .gallery-photo img {
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: 0.5s;
+            object-fit: cover;
+            transition: transform 0.6s ease;
         }
-        .btn-fancy:hover::after {
-            left: 100%;
+        .gallery-photo:hover img {
+            transform: scale(1.03);
         }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
+        /* Minimalist Button */
+        .btn-studio {
+            background: var(--studio-accent);
+            color: white;
+            padding: 18px 36px;
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: opacity 0.3s;
         }
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
+        .btn-studio:hover {
+            opacity: 0.85;
         }
-        ::-webkit-scrollbar-thumb {
-            background: #fb7185;
-            border-radius: 10px;
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
         }
     </style>
 </head>
-<body class="bg-[#FFF9F5] text-gray-800 overflow-x-hidden">
+<body>
 
-    <!-- Navigasi -->
-    <nav class="fixed w-full z-50 px-6 py-4">
-        <div class="max-w-7xl mx-auto flex justify-between items-center glass-card rounded-full px-8 py-3 shadow-md">
-            <div class="text-2xl font-extrabold tracking-tighter gradient-text">LUXENAILS.</div>
-            <div class="hidden md:flex space-x-8 font-medium text-sm uppercase tracking-widest">
-                <a href="#gallery" class="hover:text-rose-500 transition">Gallery</a>
-                <a href="#pricelist" class="hover:text-rose-500 transition">Price List</a>
-                <a href="#booking" class="hover:text-rose-500 transition">Booking</a>
-            </div>
-            <a href="#booking" class="bg-rose-500 text-white px-6 py-2 rounded-full text-sm font-bold hover:bg-rose-600 transition shadow-lg shadow-rose-200">Book Now</a>
+    <!-- Header -->
+    <header class="fixed w-full top-0 z-50 bg-[#FCFBFA]/90 backdrop-blur-md border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+            <a href="#" class="text-xl font-extrabold tracking-tight">LUXE NAILS STUDIO.</a>
+            <nav class="hidden md:flex gap-12 text-sm font-medium uppercase tracking-widest">
+                <a href="#services" class="hover:text-gray-400 transition">Layanan</a>
+                <a href="#work" class="hover:text-gray-400 transition">Galeri</a>
+                <a href="#booking" class="hover:text-gray-400 transition">Kontak</a>
+            </nav>
+            <a href="#booking" class="text-sm font-bold border-b-2 border-black pb-1">Book Appointment</a>
         </div>
-    </nav>
+    </header>
 
     <!-- Hero Section -->
-    <section class="relative min-h-screen flex items-center pt-20">
-        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center relative z-10">
-            <div data-aos="fade-right">
-                <span class="inline-block px-4 py-1 rounded-full bg-rose-100 text-rose-600 text-xs font-bold uppercase tracking-widest mb-6">#1 Gen Z Nail Studio</span>
-                <h1 class="text-6xl md:text-8xl font-serif leading-tight mb-6">Main <br><span class="italic text-rose-500">Character</span> <br>Energy.</h1>
-                <p class="text-gray-500 text-lg mb-8 max-w-md">Tingkatkan estetikamu dengan nail art kustom yang berbicara lebih keras daripada kata-kata.</p>
-                <a href="#booking" class="inline-block px-8 py-4 bg-gray-900 text-white rounded-2xl font-bold hover:bg-black transition shadow-xl btn-fancy">
-                    Reservasi Sekarang <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
-                </a>
-            </div>
-            <div class="relative" data-aos="zoom-in">
-                <div class="rounded-[2.5rem] overflow-hidden shadow-2xl animate-float">
-                    <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&q=80&w=800" alt="Nail Art Image" class="w-full h-[500px] object-cover">
+    <main class="pt-20">
+        <section class="max-w-7xl mx-auto px-6 py-12">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <span class="text-xs font-bold tracking-[0.3em] uppercase text-gray-400 block mb-6">Established 2024</span>
+                    <h1 class="text-5xl md:text-7xl font-bold leading-[1.1] mb-8 tracking-tighter">
+                        Artistry for your <br> Fingertips.
+                    </h1>
+                    <p class="text-lg text-gray-500 max-w-md mb-10 font-light">
+                        Spesialis dalam manicure teknis, desain minimalis, dan kesehatan kuku alami. Memberikan pengalaman studio yang tenang dan hasil yang tahan lama.
+                    </p>
+                    <a href="#booking" class="btn-studio inline-block">Reservasi Sekarang</a>
+                </div>
+                <div class="hero-img-container rounded-sm shadow-sm">
+                    <img src="https://images.unsplash.com/photo-1632345031435-8727f6897d53?auto=format&fit=crop&q=80&w=1000" 
+                         class="w-full h-full object-cover" alt="Nail Art Professional">
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Gallery Section -->
-    <section id="gallery" class="py-24 bg-white">
-        <div class="max-w-7xl mx-auto px-6 text-center mb-16" data-aos="fade-up">
-            <h2 class="text-5xl font-serif mb-4 italic">Inspirasi Kami</h2>
-            <p class="text-gray-400">Lihat hasil karya terbaik kami untuk inspirasi gayamu.</p>
-        </div>
-        
-        <div class="grid md:grid-cols-3 gap-8 px-6 max-w-7xl mx-auto">
-            <!-- Card 1 -->
-            <div class="group" data-aos="fade-up" data-aos-delay="100">
-                <div class="nail-card rounded-3xl shadow-lg mb-4" onclick="openGallery('https://i.pinimg.com/736x/3a/aa/ea/3aaaea406679701eb1ef7fc3a369f3a1.jpg', 'The Clean Girl', 'Nuansa nude dan desain klasik yang memberikan kesan kuku bersih dan elegan setiap saat.')">
-                    <img src="https://i.pinimg.com/736x/3a/aa/ea/3aaaea406679701eb1ef7fc3a369f3a1.jpg" class="h-96 w-full object-cover" alt="Clean Girl">
-                    <div class="overlay">
-                        <button class="bg-white/20 backdrop-blur-md text-white border border-white/40 px-6 py-2 rounded-full font-bold hover:bg-white hover:text-rose-500 transition">View Detail</button>
+        <!-- Services Section -->
+        <section id="services" class="section-padding bg-white">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="mb-20">
+                    <h2 class="text-3xl font-bold tracking-tight mb-4">Layanan Studio</h2>
+                    <div class="h-1 w-12 bg-black"></div>
+                </div>
+
+                <div class="space-y-2">
+                    <!-- Service 1 -->
+                    <div class="service-card py-10 flex flex-col md:flex-row justify-between items-start md:items-center">
+                        <div class="max-w-xl">
+                            <h3 class="text-2xl font-bold mb-2">Manicure Dasar & Gel</h3>
+                            <p class="text-gray-500 text-sm">Pembersihan kutikula secara mendalam, pembentukan kuku, dan aplikasi warna gel premium dengan ketahanan hingga 3 minggu.</p>
+                        </div>
+                        <div class="mt-4 md:mt-0 text-right">
+                            <span class="text-xl font-bold">Rp 150.000</span>
+                            <p class="text-xs text-gray-400 mt-1">60 Menit</p>
+                        </div>
                     </div>
-                </div>
-                <h3 class="text-xl font-bold">The Clean Girl</h3>
-                <p class="text-gray-400 text-sm uppercase tracking-widest">Nude & Klasik</p>
-            </div>
 
-            <!-- Card 2 -->
-            <div class="group" data-aos="fade-up" data-aos-delay="200">
-                <div class="nail-card rounded-3xl shadow-lg mb-4" onclick="openGallery('https://i.pinimg.com/736x/f4/db/fd/f4dbfdc0825f4c911a11febd30027704.jpg', 'Y2K Maximalist', 'Gabungan warna neon dan tekstur chrome yang berani untuk kamu yang ingin jadi pusat perhatian.')">
-                    <img src="https://i.pinimg.com/736x/f4/db/fd/f4dbfdc0825f4c911a11febd30027704.jpg" class="h-96 w-full object-cover" alt="Y2K">
-                    <div class="overlay">
-                        <button class="bg-white/20 backdrop-blur-md text-white border border-white/40 px-6 py-2 rounded-full font-bold hover:bg-white hover:text-rose-500 transition">View Detail</button>
+                    <!-- Service 2 -->
+                    <div class="service-card py-10 flex flex-col md:flex-row justify-between items-start md:items-center">
+                        <div class="max-w-xl">
+                            <h3 class="text-2xl font-bold mb-2">Signature Nail Art</h3>
+                            <p class="text-gray-500 text-sm">Desain kustom mulai dari minimalis garis hingga detail artistik yang dilukis dengan tangan oleh artist profesional kami.</p>
+                        </div>
+                        <div class="mt-4 md:mt-0 text-right">
+                            <span class="text-xl font-bold">Mulai Rp 250.000</span>
+                            <p class="text-xs text-gray-400 mt-1">90+ Menit</p>
+                        </div>
                     </div>
-                </div>
-                <h3 class="text-xl font-bold">Y2K Maximalist</h3>
-                <p class="text-gray-400 text-sm uppercase tracking-widest">Neon & Chrome</p>
-            </div>
 
-            <!-- Card 3 -->
-            <div class="group" data-aos="fade-up" data-aos-delay="300">
-                <div class="nail-card rounded-3xl shadow-lg mb-4" onclick="openGallery('https://i.pinimg.com/736x/2c/85/fd/2c85fd4e7c79c40cd241866522881eeb.jpg', 'Artistic Vibe', 'Seni lukis tangan manual dengan detail rumit yang menjadikan kuku Anda sebuah mahakarya.')">
-                    <img src="https://i.pinimg.com/736x/2c/85/fd/2c85fd4e7c79c40cd241866522881eeb.jpg" class="h-96 w-full object-cover" alt="Artistic">
-                    <div class="overlay">
-                        <button class="bg-white/20 backdrop-blur-md text-white border border-white/40 px-6 py-2 rounded-full font-bold hover:bg-white hover:text-rose-500 transition">View Detail</button>
-                    </div>
-                </div>
-                <h3 class="text-xl font-bold">Artistic Vibe</h3>
-                <p class="text-gray-400 text-sm uppercase tracking-widest">Seni Lukis Tangan</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Modal Gallery -->
-    <div id="galleryModal" class="fixed inset-0 bg-black/90 items-center justify-center p-6 transition-all duration-300">
-        <button onclick="closeGallery()" class="absolute top-6 right-6 text-white text-3xl hover:rotate-90 transition duration-300">
-            <i class="fa-solid fa-xmark"></i>
-        </button>
-        
-        <div class="max-w-4xl w-full bg-white rounded-[2rem] overflow-hidden flex flex-col md:flex-row shadow-2xl">
-            <div class="md:w-1/2 h-80 md:h-[500px]">
-                <img id="modalImg" src="" class="w-full h-full object-cover" alt="Detail Image">
-            </div>
-            <div class="md:w-1/2 p-8 md:p-12 flex flex-col justify-center">
-                <span class="text-rose-500 font-bold uppercase tracking-widest text-xs mb-2">Portfolio Detail</span>
-                <h2 id="modalTitle" class="text-3xl font-serif italic mb-6">Judul Gambar</h2>
-                <p id="modalDesc" class="text-gray-500 leading-relaxed mb-8">Deskripsi akan muncul di sini.</p>
-                <div class="flex gap-4">
-                    <a href="#booking" onclick="closeGallery()" class="bg-rose-500 text-white px-8 py-3 rounded-xl font-bold shadow-lg shadow-rose-200 hover:bg-rose-600 transition">Book Similar Look</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Price List Section -->
-    <section id="pricelist" class="py-24 bg-[#FFF9F5]">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-5xl font-serif italic">The Price List</h2>
-            </div>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-white p-10 rounded-[3rem] shadow-xl border border-rose-50 price-card" data-aos="fade-up" data-aos-delay="100">
-                    <h3 class="text-2xl font-serif mb-4">Essential</h3>
-                    <p class="text-4xl font-bold mb-6 text-rose-500">125k</p>
-                    <ul class="space-y-4 mb-8 text-gray-500">
-                        <li><i class="fa-solid fa-check text-rose-500 mr-2"></i> Russian Manicure</li>
-                        <li><i class="fa-solid fa-check text-rose-500 mr-2"></i> Single Color Gel</li>
-                        <li><i class="fa-solid fa-check text-rose-500 mr-2"></i> Vitamin Kuku</li>
-                    </ul>
-                    <a href="#booking" class="block text-center py-3 border-2 border-gray-900 rounded-xl font-bold hover:bg-gray-900 hover:text-white transition">Pilih Paket</a>
-                </div>
-                <!-- Signature Package (Highlighted) -->
-                <div class="bg-white p-10 rounded-[3rem] shadow-2xl border-2 border-rose-200 price-card scale-105 z-10" data-aos="fade-up" data-aos-delay="200">
-                    <div class="inline-block px-4 py-1 bg-rose-500 text-white text-[10px] font-bold rounded-full mb-4 uppercase">Terlaris</div>
-                    <h3 class="text-2xl font-serif mb-4">Signature</h3>
-                    <p class="text-4xl font-bold mb-6 text-rose-500">250k</p>
-                    <ul class="space-y-4 mb-8 text-gray-500">
-                        <li><i class="fa-solid fa-check text-rose-500 mr-2"></i> Semua di Essential</li>
-                        <li><i class="fa-solid fa-check text-rose-500 mr-2"></i> Desain French / Ombre</li>
-                        <li><i class="fa-solid fa-check text-rose-500 mr-2"></i> Chrome / Cat Eye</li>
-                    </ul>
-                    <a href="#booking" class="block text-center py-3 bg-rose-500 text-white rounded-xl font-bold hover:bg-rose-600 transition shadow-lg">Pilih Paket</a>
-                </div>
-                <div class="bg-white p-10 rounded-[3rem] shadow-xl border border-rose-50 price-card" data-aos="fade-up" data-aos-delay="300">
-                    <h3 class="text-2xl font-serif mb-4">Masterpiece</h3>
-                    <p class="text-4xl font-bold mb-6 text-rose-500">450k</p>
-                    <ul class="space-y-4 mb-8 text-gray-500">
-                        <li><i class="fa-solid fa-check text-rose-500 mr-2"></i> Semua di Signature</li>
-                        <li><i class="fa-solid fa-check text-rose-500 mr-2"></i> Aksesoris 3D Charms</li>
-                        <li><i class="fa-solid fa-check text-rose-500 mr-2"></i> Nail Extensions</li>
-                    </ul>
-                    <a href="#booking" class="block text-center py-3 border-2 border-gray-900 rounded-xl font-bold hover:bg-gray-900 hover:text-white transition">Pilih Paket</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FOOTER & CONTACT -->
-    <section id="booking" class="relative py-24 bg-white overflow-hidden border-t border-gray-50">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid md:grid-cols-12 gap-12 items-center">
-                <div class="md:col-span-5" data-aos="fade-right">
-                    <span class="text-rose-500 font-bold tracking-widest text-xs uppercase mb-4 block">Let's Talk</span>
-                    <h2 class="text-5xl md:text-6xl font-serif italic mb-8 leading-tight">Siap untuk <br><span class="text-rose-500">Nail Therapy?</span></h2>
-                    
-                    <div class="flex flex-col gap-4">
-                        <a href="https://wa.me/nomormu" class="flex items-center gap-4 bg-rose-500 text-white p-5 rounded-2xl hover:bg-rose-600 transition shadow-xl shadow-rose-100 group w-fit pr-12">
-                            <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center text-xl">
-                                <i class="fa-brands fa-whatsapp"></i>
-                            </div>
-                            <div>
-                                <p class="text-[10px] uppercase font-bold opacity-80">Booking Via</p>
-                                <p class="text-lg font-bold">WhatsApp Admin</p>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="md:col-span-7" data-aos="fade-left">
-                    <div class="bg-[#FFF9F5] p-8 md:p-12 rounded-[3rem] border border-rose-100 shadow-sm overflow-hidden">
-                        <h4 class="text-2xl font-serif mb-8 italic">Visit Our Studio</h4>
-                        <div class="space-y-6">
-                            <div class="flex items-start gap-4">
-                                <div class="w-10 h-10 bg-white rounded-xl shadow-sm flex items-center justify-center text-rose-500 shrink-0">
-                                    <i class="fa-solid fa-location-dot"></i>
-                                </div>
-                                <p class="text-gray-500">Jl. Aesthetic No. 101, Jakarta Selatan</p>
-                            </div>
-                            <div class="flex items-start gap-4">
-                                <div class="w-10 h-10 bg-white rounded-xl shadow-sm flex items-center justify-center text-rose-500 shrink-0">
-                                    <i class="fa-solid fa-clock"></i>
-                                </div>
-                                <p class="text-gray-500">Selasa - Minggu | 10:00 - 20:00 WIB</p>
-                            </div>
+                    <!-- Service 3 -->
+                    <div class="service-card py-10 flex flex-col md:flex-row justify-between items-start md:items-center">
+                        <div class="max-w-xl">
+                            <h3 class="text-2xl font-bold mb-2">Gel Extension & Restoration</h3>
+                            <p class="text-gray-500 text-sm">Ekstensi kuku menggunakan teknik gel yang ringan dan terlihat natural. Cocok untuk memperbaiki kuku yang rapuh.</p>
+                        </div>
+                        <div class="mt-4 md:mt-0 text-right">
+                            <span class="text-xl font-bold">Rp 450.000</span>
+                            <p class="text-xs text-gray-400 mt-1">120 Menit</p>
                         </div>
                     </div>
                 </div>
             </div>
-            
-            <div class="mt-24 pt-8 border-t border-gray-100 flex flex-col md:flex-row justify-between items-center gap-4">
-                <div class="text-xl font-extrabold tracking-tighter gradient-text">LUXENAILS.</div>
-                <p class="text-gray-400 text-xs">© 2024 LuxeNails Studio. Crafted with love.</p>
+        </section>
+
+        <!-- Work Gallery -->
+        <section id="work" class="section-padding">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="flex justify-between items-end mb-16">
+                    <h2 class="text-3xl font-bold tracking-tight">Koleksi Desain</h2>
+                    <a href="#" class="text-sm font-bold border-b border-black">Follow Instagram @luxenails</a>
+                </div>
+
+                <div class="grid-gallery">
+                    <div class="gallery-photo col-span-12 md:col-span-8 h-[500px]">
+                        <img src="https://i.pinimg.com/736x/2c/85/fd/2c85fd4e7c79c40cd241866522881eeb.jpg" alt="Gallery 1">
+                    </div>
+                    <div class="gallery-photo col-span-6 md:col-span-4 h-[500px]">
+                        <img src="https://i.pinimg.com/736x/3a/aa/ea/3aaaea406679701eb1ef7fc3a369f3a1.jpg" alt="Gallery 2">
+                    </div>
+                    <div class="gallery-photo col-span-6 md:col-span-4 h-[400px]">
+                        <img src="https://i.pinimg.com/736x/f4/db/fd/f4dbfdc0825f4c911a11febd30027704.jpg" alt="Gallery 3">
+                    </div>
+                    <div class="gallery-photo col-span-12 md:col-span-8 h-[400px]">
+                        <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&q=80&w=1200" alt="Gallery 4">
+                    </div>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init({ duration: 1000, once: true });
+        <!-- Booking & Footer -->
+        <section id="booking" class="bg-gray-50 section-padding">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="grid md:grid-cols-2 gap-20">
+                    <div>
+                        <h2 class="text-4xl font-bold mb-8 tracking-tight">Kunjungi Studio Kami</h2>
+                        <p class="text-gray-500 mb-12 font-light text-lg">Kami beroperasi dengan sistem janji temu untuk memastikan setiap klien mendapatkan perhatian penuh dan kenyamanan maksimal.</p>
+                        
+                        <div class="space-y-8">
+                            <div class="flex gap-6">
+                                <div class="w-10 h-10 flex items-center justify-center border border-gray-200 rounded-full shrink-0">
+                                    <i class="fa-solid fa-location-dot text-sm"></i>
+                                </div>
+                                <div>
+                                    <p class="font-bold">Lokasi</p>
+                                    <p class="text-gray-400 text-sm">Kawasan SCBD, Jl. Jend Sudirman Kav 52-53, Jakarta Selatan</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-6">
+                                <div class="w-10 h-10 flex items-center justify-center border border-gray-200 rounded-full shrink-0">
+                                    <i class="fa-solid fa-clock text-sm"></i>
+                                </div>
+                                <div>
+                                    <p class="font-bold">Jam Operasional</p>
+                                    <p class="text-gray-400 text-sm">Selasa - Minggu: 10:00 — 20:00</p>
+                                </div>
+                            </div>
+                        </div>
 
-        // Gallery Modal Logic
-        const modal = document.getElementById('galleryModal');
-        const modalImg = document.getElementById('modalImg');
-        const modalTitle = document.getElementById('modalTitle');
-        const modalDesc = document.getElementById('modalDesc');
+                        <div class="mt-12">
+                            <a href="https://wa.me/62812345678" class="btn-studio inline-flex items-center gap-3">
+                                <i class="fa-brands fa-whatsapp"></i> Book via WhatsApp
+                            </a>
+                        </div>
+                    </div>
+                    <div class="bg-white p-10 shadow-sm rounded-sm">
+                        <h4 class="text-xl font-bold mb-6">Kirim Pertanyaan</h4>
+                        <form class="space-y-4">
+                            <input type="text" placeholder="Nama Lengkap" class="w-full p-4 bg-gray-50 border-none text-sm outline-none focus:ring-1 focus:ring-black">
+                            <input type="email" placeholder="Email" class="w-full p-4 bg-gray-50 border-none text-sm outline-none focus:ring-1 focus:ring-black">
+                            <textarea placeholder="Pesan Anda" rows="4" class="w-full p-4 bg-gray-50 border-none text-sm outline-none focus:ring-1 focus:ring-black"></textarea>
+                            <button type="button" class="w-full bg-black text-white py-4 font-bold text-xs uppercase tracking-widest">Kirim Pesan</button>
+                        </form>
+                    </div>
+                </div>
 
-        function openGallery(imgSrc, title, desc) {
-            modalImg.src = imgSrc;
-            modalTitle.innerText = title;
-            modalDesc.innerText = desc;
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden'; // Stop scroll
-        }
+                <div class="mt-32 pt-10 border-t border-gray-200 flex flex-col md:flex-row justify-between items-center gap-6">
+                    <p class="text-xl font-extrabold tracking-tight">LUXE NAILS STUDIO.</p>
+                    <div class="flex gap-8 text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400">
+                        <a href="#">Instagram</a>
+                        <a href="#">TikTok</a>
+                        <a href="#">Privacy Policy</a>
+                    </div>
+                    <p class="text-gray-400 text-[10px] uppercase tracking-widest">© 2024 Luxe Nails Collective.</p>
+                </div>
+            </div>
+        </section>
+    </main>
 
-        function closeGallery() {
-            modal.classList.remove('active');
-            document.body.style.overflow = 'auto'; // Enable scroll
-        }
-
-        // Close modal when clicking outside content
-        modal.addEventListener('click', function(e) {
-            if (e.target === modal) closeGallery();
-        });
-    </script>
 </body>
 </html>
